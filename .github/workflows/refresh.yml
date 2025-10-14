@@ -1,0 +1,75 @@
+# Workflow to refresh Windows App SDK specifications from upstream repository
+
+name: Refresh Specs
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+  # Run automatically on a schedule (daily at 2 AM UTC)
+  schedule:
+    - cron: '0 2 * * *'
+
+# Add the necessary permissions. This is a crucial modification.
+permissions:
+  contents: write  # allow commit and push
+  actions: read
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This job refreshes the specs from the upstream repository
+  refresh-specs:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          ref: main
+
+      # Configure Git user for commits
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Make the script executable and run it
+      - name: Refresh Windows App SDK Specs
+        run: |
+          chmod +x refresh.sh
+          ./refresh.sh
+
+      # Check if there are any changes to commit
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Commit and push changes if any
+      - name: Commit and push changes
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git add .
+          git commit -m "🔄 Auto-refresh: Update Windows App SDK specifications $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Output status
+      - name: Status report
+        run: |
+          if [ "${{ steps.verify-changed-files.outputs.changed }}" == "true" ]; then
+            echo "✅ Specifications updated and committed successfully"
+          else
+            echo "ℹ️ No changes detected - specifications are up to date"
+          fi
