@@ -13,7 +13,7 @@ extendedZipContent:
 - path: LICENSE
   target: LICENSE
 ---
-# Installer launch sample
+# Installer launch sample 
 
 This sample demonstrates how to launch the Windows App SDK installer, **WindowsAppRuntimeInstall.exe**, without having a pop-up
 window appearing while it is running. This sample is intended for Win32 programs which have setup
