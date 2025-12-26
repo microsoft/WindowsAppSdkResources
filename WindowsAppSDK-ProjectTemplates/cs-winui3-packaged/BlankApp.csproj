@@ -37,6 +37,27 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251003001" />
+    
+    <!-- Dependency Injection -->
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    
+    <!-- Logging - Microsoft Core + Windows Event Log -->
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="9.0.0" />
+    
+    <!-- Logging - File with rotation (Serilog integrates with Microsoft.Extensions.Logging) -->
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+  </ItemGroup>
+
+  <!-- IMPORTANT: Exclude test files and test project folder from shipping build -->
+  <ItemGroup>
+    <Compile Remove="**\*.Test.cs" />
+    <Compile Remove="**\*.Sample.cs" />
+    <Compile Remove="Tests\**" />
+    <None Include="**\*.Test.cs" />
+    <None Include="**\*.Sample.cs" />
   </ItemGroup>
 
   <!--
