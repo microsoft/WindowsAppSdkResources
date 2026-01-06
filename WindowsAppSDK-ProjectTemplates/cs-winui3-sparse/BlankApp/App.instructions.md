@@ -50,8 +50,53 @@ Each layer has detailed instructions - **READ BEFORE CODING!**
 ### DI and Logging Setup (App.xaml.cs)
 - Configure services with `AddAppLogging()` from Infrastructure.
 - Register sample implementations for DI: `IUserRepository` → `UserRepository`, `IUserService` → `UserService`, and `MainViewModel`.
-- Use `App.GetService<T>()` to resolve dependencies (e.g., in pages to get `MainViewModel`).
+- **Prefer constructor injection** for all classes except UI components (Pages/Controls).
+- Use `App.GetService<T>()` **only** when constructor injection is not possible (e.g., in XAML-instantiated Pages that require parameterless constructors).
 - Global exception hooks log critical failures (UI, task, AppDomain).
+
+### Dependency Injection Best Practices
+**✅ DO: Use Constructor Injection (Preferred)**
+```csharp
+// Services, ViewModels, Data classes
+public class UserService : IUserService
+{
+    private readonly IUserRepository _repository;
+    private readonly ILogger<UserService> _logger;
+
+    // Dependencies are explicit and testable
+    public UserService(IUserRepository repository, ILogger<UserService> logger)
+    {
+        _repository = repository;
+        _logger = logger;
+    }
+}
+```
+
+**⚠️ USE WITH CAUTION: Service Locator Pattern**
+```csharp
+// Only for XAML-instantiated Pages/Controls
+public MainPage()
+{
+    InitializeComponent();
+    
+    // Document why GetService is necessary here:
+    // MainPage is instantiated by XAML framework and cannot use constructor injection
+    _logger = App.GetService<ILogger<MainPage>>();
+    ViewModel = App.GetService<MainViewModel>();
+}
+```
+
+**❌ DON'T: Use GetService in classes that support constructor injection**
+```csharp
+// BAD - ViewModels, Services, Data classes should use constructor injection
+public class BadViewModel
+{
+    public BadViewModel()
+    {
+        var service = App.GetService<IUserService>(); // ❌ Hidden dependency
+    }
+}
+```
 
 ## 🧪 Co-located Testing
 

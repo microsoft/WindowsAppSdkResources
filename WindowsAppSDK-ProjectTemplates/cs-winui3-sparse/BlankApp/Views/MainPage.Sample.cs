@@ -22,11 +22,26 @@ public sealed partial class MainPage : Page
     /// <summary>
     /// Initializes a new instance of MainPage.
     /// </summary>
+    /// <remarks>
+    /// ⚠️ Service Locator Pattern Used Here
+    /// 
+    /// This page uses App.GetService() instead of constructor injection because:
+    /// 1. WinUI Pages are instantiated by the XAML framework via reflection
+    /// 2. The framework requires a parameterless constructor
+    /// 3. Constructor injection is not possible in this scenario
+    /// 
+    /// For classes that support constructor injection (ViewModels, Services, Data), 
+    /// always prefer constructor injection over App.GetService().
+    /// 
+    /// See App.GetService documentation for more details on limitations and best practices.
+    /// </remarks>
     public MainPage()
     {
         this.InitializeComponent();
         
         // Get ViewModel from DI container
+        // NOTE: Using Service Locator here due to XAML framework constraints
+        // Prefer constructor injection for all other classes
         _logger = App.GetService<ILogger<MainPage>>();
         ViewModel = App.GetService<MainViewModel>();
         

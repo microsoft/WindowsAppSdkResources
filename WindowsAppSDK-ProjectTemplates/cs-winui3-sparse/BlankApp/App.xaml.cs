@@ -46,6 +46,40 @@ namespace BlankApp
             _window.Activate();
         }
 
+        /// <summary>
+        /// Retrieves a service from the application's dependency injection container.
+        /// </summary>
+        /// <typeparam name="T">The type of service to retrieve.</typeparam>
+        /// <returns>The requested service instance.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when the application has not been initialized.</exception>
+        /// <remarks>
+        /// <para><strong>⚠️ Service Locator Pattern - Use with Caution</strong></para>
+        /// <para>
+        /// This method implements the Service Locator pattern, which is generally considered an anti-pattern
+        /// because it hides dependencies and makes code harder to test and understand.
+        /// </para>
+        /// <para><strong>Prefer Constructor Injection:</strong></para>
+        /// <para>
+        /// - For ViewModels, Services, and Data classes: Always use constructor injection
+        /// - Example: <c>public UserService(IUserRepository repository, ILogger&lt;UserService&gt; logger)</c>
+        /// - Benefits: Explicit dependencies, better testability, compile-time safety
+        /// </para>
+        /// <para><strong>When This Pattern Is Acceptable:</strong></para>
+        /// <para>
+        /// - WinUI Pages/Controls that require parameterless constructors for XAML instantiation
+        /// - Code-behind files where the framework controls object creation
+        /// - Temporary bridge code during migration to full dependency injection
+        /// </para>
+        /// <para><strong>Limitations and Risks:</strong></para>
+        /// <para>
+        /// - Hidden dependencies: Classes using this don't declare what they need
+        /// - Runtime failures: Dependencies resolved at runtime instead of compile-time
+        /// - Harder testing: Must initialize full application to test components
+        /// - Tight coupling: Direct dependency on App class throughout codebase
+        /// - Initialization order: Fails if called before App constructor completes
+        /// </para>
+        /// <para><strong>Best Practice:</strong> Document why GetService is necessary each time you use it.</para>
+        /// </remarks>
         public static T GetService<T>() where T : class
         {
             if (Current is not App app)
