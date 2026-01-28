@@ -10,3 +10,7 @@ devcert.pfx
 
 # Windows SDK packages and generated files
 .winapp
+
+# Node-gyp build artifacts
+addon/build
+addon/node_modules
