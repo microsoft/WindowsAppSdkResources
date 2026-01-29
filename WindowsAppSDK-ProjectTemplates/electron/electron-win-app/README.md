@@ -121,13 +121,77 @@ npm run clean-debug
 
 ## Adding Windows Features
 
-To extend Windows integration:
-1. Add C++ code in `addon/` to expose WinRT APIs
-2. Update `addon/binding.gyp` with dependencies
-3. Run `npm run build-addon` to rebuild
-4. Access the addon from Electron main process
+This template uses a C++ native addon to access Windows APIs (WinRT). When you need to use a Windows API that isn't available in JavaScript, follow these steps:
 
-See `AGENTS.md` for detailed architecture and development guidance.
+### Step 1: Add C++ function in addon
+
+Edit [addon/addon.cc](addon/addon.cc) to add your new Windows API wrapper:
+
+```cpp
+#include <winrt/Windows.System.h>  // Add necessary WinRT headers
+
+void YourNewFunction(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+    
+    // Get arguments from JavaScript
+    std::string arg1 = info[0].As<Napi::String>().Utf8Value();
+    
+    // Call WinRT API
+    winrt::init_apartment();
+    // ... your WinRT code here ...
+    
+    // Return result to JavaScript
+    return Napi::String::New(env, "result");
+}
+
+// Register in Init() function at the bottom of the file
+exports.Set("yourNewFunction", Napi::Function::New(env, YourNewFunction));
+```
+
+### Step 2: Update binding.gyp (if needed)
+
+If your API requires additional libraries, edit [addon/binding.gyp](addon/binding.gyp):
+
+```json
+"libraries": [
+  "WindowsApp.lib",
+  "YourAdditionalLib.lib"  // Add new libs here
+]
+```
+
+### Step 3: Rebuild the addon
+
+```bash
+npm run build-addon
+```
+
+### Step 4: Add IPC handler in main process
+
+Edit [src/main/index.ts](src/main/index.ts):
+
+```typescript
+ipcMain.handle('your-new-method', (_event, arg1) => {
+  return nativeAddon.yourNewFunction(arg1)
+})
+```
+
+### Step 5: Call from renderer
+
+```typescript
+const result = await window.electron.ipcRenderer.invoke('your-new-method', arg1)
+```
+
+### Common Windows APIs Examples
+
+| Feature | WinRT Namespace | Example Use |
+|---------|-----------------|-------------|
+| Notifications | `Windows.UI.Notifications` | Toast notifications |
+| File Picker | `Windows.Storage.Pickers` | Native file dialogs |
+| Share | `Windows.ApplicationModel.DataTransfer` | Share content |
+| Clipboard | `Windows.ApplicationModel.DataTransfer` | Advanced clipboard |
+| System Info | `Windows.System` | Device info, memory |
+
+See [AGENTS.md](AGENTS.md) for detailed architecture and more examples.
 
 ## Troubleshooting
 
