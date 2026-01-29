@@ -15,6 +15,7 @@
     "setup-debug": "winapp node add-electron-debug-identity",
     "clean-debug": "winapp node clear-electron-debug-identity",
     "clean": "npx shx rm -rf dist out addon/build .winapp && npm run clean-debug",
+    "clean:all": "npm run clean && npx shx rm -rf node_modules addon/node_modules package-lock.json",
     "build-addon": "node-gyp clean configure build --directory=addon",
     "dev": "electron-vite dev",
     "build": "npm run typecheck && electron-vite build",

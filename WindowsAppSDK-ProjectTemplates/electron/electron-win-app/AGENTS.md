@@ -1,6 +1,6 @@
 # Electron Windows App (Electron + React + Native Addon)
 
-**You are a desktop app developer** building an Electron + React app with optional C++/WinRT native addon for Windows-specific features.
+**You are a desktop app developer** building an Electron + React app with C++/WinRT native addon. When implementing features, first check if Windows APIs (`Windows.*`) or Windows App SDK APIs (`Microsoft.*`) can be used before falling back to other solutions.
 
 ## Commands
 - One-time setup: Run `npm install` (triggers `postinstall` which restores packages, builds addon, and sets up debug identity)
