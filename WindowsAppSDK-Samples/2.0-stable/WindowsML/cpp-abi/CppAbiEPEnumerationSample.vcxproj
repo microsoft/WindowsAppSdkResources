@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NuGet">
+    <!-- When building centrally, this will define a single nuget package location for all samples -->
+    <NugetPackageDirectory Condition="'$(NugetPackageDirectory)'==''">..\packages</NugetPackageDirectory>
+    <!-- Tell NuGet this is PackageReference style -->
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+
+    <!-- Tell NuGet we're a native project -->
+    <NuGetTargetMoniker>native,Version=v0.0</NuGetTargetMoniker>
+
+    <!-- Tell NuGet we target Windows (use your existing WindowsTargetPlatformVersion) -->
+    <NuGetTargetPlatformIdentifier>Windows</NuGetTargetPlatformIdentifier>
+    <NuGetTargetPlatformVersion>$(WindowsTargetPlatformVersion)</NuGetTargetPlatformVersion>
+  </PropertyGroup><PropertyGroup>
+    <!-- Enable self-contained deployment BEFORE any imports -->
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <!-- Enable Windows SDK references for AbiWinRT -->
+    <WindowsSDKDesktopARM64Support Condition="'$(WindowsSDKDesktopARM64Support)' == ''">true</WindowsSDKDesktopARM64Support>
+    <!-- Configure AbiWinRT to only process specific metadata -->
+    <AbiWinRTFilter>Microsoft.Windows.AI.MachineLearning</AbiWinRTFilter>
+    <!-- Include Windows SDK for reference resolution -->
+    <WindowsSDKVersion>10.0.26100.0</WindowsSDKVersion>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64" Configuration="Debug" Platform="x64" />
+    <ProjectConfiguration Include="Release|x64" Configuration="Release" Platform="x64" />
+    <ProjectConfiguration Include="Debug|ARM64" Configuration="Debug" Platform="ARM64" />
+    <ProjectConfiguration Include="Release|ARM64" Configuration="Release" Platform="ARM64" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{4A7A8B12-4B8C-4D9E-A12F-3E4D5F6A7B8C}</ProjectGuid>
+    <RootNamespace>CppAbiEPEnumerationSample</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsPackageType>None</WindowsPackageType>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <ProjectName>CppAbiEPEnumerationSample</ProjectName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" />
+    <PackageReference Include="Microsoft.Windows.AbiWinRT" />
+    <PackageReference Include="Microsoft.Web.WebView2" GeneratePathProperty="true" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level4</WarningLevel>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Shared\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>windowsapp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <!-- Add Windows SDK metadata as reference for type resolution -->
+    <Reference Include="Windows">
+      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.26100.0\Windows.winmd</HintPath>
+      <IsSystemReference>true</IsSystemReference>
+      <WinMDFile>true</WinMDFile>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core">
+      <HintPath>$(PkgMicrosoft_Web_WebView2)\lib\Microsoft.Web.WebView2.Core.winmd</HintPath>
+      <IsSystemReference>true</IsSystemReference>
+      <WinMDFile>true</WinMDFile>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup>
+    <!-- Custom AbiWinRT arguments -->
+    <AbiWinRTArgs>-reference "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.26100.0\Windows.winmd"</AbiWinRTArgs>
+  </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="AsyncHandlers.cpp" />
+    <ClCompile Include="ExecutionProvider.cpp" />
+    <ClCompile Include="ExecutionProviderCatalog.cpp" />
+    <ClCompile Include="ConsoleUI.cpp" />
+    <ClCompile Include="Application.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AbiUtils.h" />
+    <ClInclude Include="AsyncHandlers.h" />
+    <ClInclude Include="ExecutionProvider.h" />
+    <ClInclude Include="ExecutionProviderCatalog.h" />
+    <ClInclude Include="ConsoleUI.h" />
+    <ClInclude Include="Application.h" />
+  </ItemGroup>
+  <ItemGroup>
+</ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
+
