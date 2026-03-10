@@ -47,7 +47,7 @@ echo "All specs folders have been downloaded."
 cd "$WORKDIR"
 REPO="https://github.com/microsoft/WindowsAppSDK-Samples.git"
 
-BRANCHES="main release/1.7-stable release/1.8-stable"
+BRANCHES="main release/1.7-stable release/1.8-stable release/2.0-stable"
 RESOURCE_WINAPPSDK_SPECS_DIR="WindowsAppSDK-Samples"
 
 mkdir -p "$WORKDIR/$RESOURCE_WINAPPSDK_SPECS_DIR" && cd "$WORKDIR/$RESOURCE_WINAPPSDK_SPECS_DIR" || { echo "Failed to enter the $RESOURCE_WINAPPSDK_SPECS_DIR directory"; exit 1; }
