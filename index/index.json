@@ -1,0 +1,1589 @@
+{
+  "version": "2026-03-16",
+  "generatedAt": "2026-03-16T03:34:46.570835+00:00",
+  "totalEntries": 22,
+  "entries": [
+    {
+      "id": "known_issue_api_docs_storagefile",
+      "path": "E:\\issue-tsg-generator\\output\\known_issue_api_docs_storagefile.md",
+      "title": "Known Issue: Missing AppWindow Placement API Documentation & StorageFile Shortcut File Support",
+      "area": "Storage",
+      "symptoms": [],
+      "errorCodes": [],
+      "keywords": [
+        "AppWindow",
+        "GetCurrentPlacement",
+        "SaveCurrentPlacement",
+        "PlacementRestorationBehavior",
+        "PlacementInfo",
+        "DisplayArea",
+        "GetMetricsFromWindowId",
+        "PersistedStateId",
+        "experimental API",
+        "StorageFile",
+        "shortcut",
+        ".lnk",
+        ".url",
+        ".wsh",
+        "file handler"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#5896",
+        "microsoft/WindowsAppSDK#518",
+        "microsoft/WindowsAppSDK#5896",
+        "microsoft/WindowsAppSDK#518"
+      ]
+    },
+    {
+      "id": "known_issue_api_gaps_localization",
+      "path": "E:\\issue-tsg-generator\\output\\known_issue_api_gaps_localization.md",
+      "title": "Known Issue: PrimaryLanguageOverride Not Persisted & Missing PackageManager API",
+      "area": "Runtime",
+      "symptoms": [],
+      "errorCodes": [],
+      "keywords": [
+        "PrimaryLanguageOverride",
+        "null",
+        "empty",
+        "not persisted",
+        "localization",
+        "Microsoft.Windows.Globalization",
+        "MovePackageToVolumeAsync",
+        "PackageDeploymentManager",
+        "WASDK 2.0"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6118",
+        "microsoft/WindowsAppSDK#1687",
+        "microsoft/WindowsAppSDK#6118",
+        "microsoft/WindowsAppSDK#6118",
+        "microsoft/WindowsAppSDK#6118",
+        "microsoft/WindowsAppSDK#6118",
+        "microsoft/WindowsAppSDK#6221",
+        "microsoft/WindowsAppSDK#6221"
+      ]
+    },
+    {
+      "id": "known_issue_msix_buildtools_defects",
+      "path": "E:\\issue-tsg-generator\\output\\known_issue_msix_buildtools_defects.md",
+      "title": "Known Issue: MSIX Build Tools Defects and Documentation Gaps",
+      "area": "Deployment",
+      "symptoms": [],
+      "errorCodes": [],
+      "keywords": [
+        "Microsoft.Windows.SDK.BuildTools.MSIX",
+        "AppxSymbolPackageEnabled",
+        "_GenerateAppxSymbolPackage",
+        "mspdbcmf.exe",
+        "msixbundle",
+        "Dependencies folder",
+        "Publish error",
+        "wapproj",
+        "documentation",
+        "roadmap"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6183",
+        "microsoft/WindowsAppSDK#6147",
+        "microsoft/WindowsAppSDK#6261",
+        "microsoft/WindowsAppSDK#3065",
+        "microsoft/WindowsAppSDK#6183",
+        "microsoft/WindowsAppSDK#6147",
+        "microsoft/WindowsAppSDK#1808",
+        "microsoft/WindowsAppSDK#6261",
+        "microsoft/WindowsAppSDK#3065"
+      ]
+    },
+    {
+      "id": "known_issue_msix_nuget_license",
+      "path": "E:\\issue-tsg-generator\\output\\known_issue_msix_nuget_license.md",
+      "title": "Known Issue: NuGet Package License Forbids Redistribution of Bootstrap DLL",
+      "area": "Deployment",
+      "symptoms": [],
+      "errorCodes": [],
+      "keywords": [
+        "Microsoft.WindowsAppSDK.Foundation",
+        "bootstrap DLL",
+        "NuGet license",
+        "redistribution",
+        "Microsoft.WindowsAppSDK",
+        "license terms"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6288",
+        "microsoft/WindowsAppSDK#3498",
+        "microsoft/WindowsAppSDK#6288",
+        "microsoft/WindowsAppSDK#3498"
+      ]
+    },
+    {
+      "id": "known_issue_performance_crashes",
+      "path": "E:\\issue-tsg-generator\\output\\known_issue_performance_crashes.md",
+      "title": "Known Issue: WinRT API Performance Overhead & Packaged App Crashes in Admin Mode on Windows 10",
+      "area": "Runtime",
+      "symptoms": [],
+      "errorCodes": [
+        "0xc000027b"
+      ],
+      "keywords": [
+        "WinRT",
+        "ApplicationData",
+        "Package.Current",
+        "performance",
+        "latency",
+        "25ms",
+        "admin mode",
+        "elevated",
+        "packaged app crash",
+        "Windows 10",
+        "0xc000027b"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6223",
+        "microsoft/WindowsAppSDK#6223",
+        "microsoft/WindowsAppSDK#6223",
+        "microsoft/WindowsAppSDK#6268",
+        "microsoft/WindowsAppSDK#2555",
+        "microsoft/WindowsAppSDK#6268",
+        "microsoft/WindowsAppSDK#6268"
+      ]
+    },
+    {
+      "id": "known_issue_widget_platform_defects",
+      "path": "E:\\issue-tsg-generator\\output\\known_issue_widget_platform_defects.md",
+      "title": "Known Issue: Widget Settings Panel Reloads Instead of Closing & Widget Not Appearing After Install",
+      "area": "Widgets",
+      "symptoms": [],
+      "errorCodes": [],
+      "keywords": [
+        "widget settings",
+        "close button",
+        "reload",
+        "widget board",
+        "widget not appearing",
+        "reinstall",
+        "customize widget",
+        "Windows Widgets",
+        "WidgetProviders"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6141",
+        "microsoft/WindowsAppSDK#3958",
+        "microsoft/WindowsAppSDK#6141",
+        "microsoft/WindowsAppSDK#3958"
+      ]
+    },
+    {
+      "id": "known_issues_external_notifications",
+      "path": "E:\\issue-tsg-generator\\output\\known_issues_external_notifications.md",
+      "title": "Known Issues: MSIX Data Retention, Toast Rendering, and AppNotification Registration",
+      "area": "Runtime",
+      "symptoms": [],
+      "errorCodes": [
+        "COMException"
+      ],
+      "keywords": [
+        "MSIX",
+        "uninstall",
+        "data retention",
+        "app data",
+        "keep data",
+        "game data",
+        "reinstall"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6260",
+        "microsoft/WindowsAppSDK#13",
+        "microsoft/WindowsAppSDK#4026",
+        "microsoft/WindowsAppSDK#6071"
+      ]
+    },
+    {
+      "id": "known_issues_file_access_pickers",
+      "path": "E:\\issue-tsg-generator\\output\\known_issues_file_access_pickers.md",
+      "title": "Known Issue: Storage Picker Missing Features and Unexpected Behavior",
+      "area": "Storage",
+      "symptoms": [],
+      "errorCodes": [],
+      "keywords": [
+        "SettingsIdentifier",
+        "FileOpenPicker",
+        "FileSavePicker",
+        "FolderPicker",
+        "last used location",
+        "Microsoft.Windows.Storage.Pickers"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#5847",
+        "microsoft/WindowsAppSDK#5976"
+      ]
+    },
+    {
+      "id": "api_gaps_unpackaged_support",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_api_gaps_unpackaged_support.md",
+      "title": "API Gaps: Unpackaged App Support, Storage & Package Management - Windows App SDK",
+      "area": "WinML",
+      "symptoms": [
+        "`ApplicationData.Current` fails in an unpackaged (non-MSIX) app",
+        "Need app metadata (display name, icon, etc.) in an unpackaged app",
+        "WASDK `PackageVolume` is missing `FindPackage`-related APIs available in the platform type",
+        "Want to register as a default file handler by MIME content type instead of individual file extensions"
+      ],
+      "errorCodes": [],
+      "keywords": [
+        "ApplicationData",
+        "unpackaged",
+        "AppInfo",
+        "package identity",
+        "StorageFolder",
+        "PackageVolume",
+        "FindPackage",
+        "content type",
+        "file handler",
+        "file association",
+        "manifest",
+        "LOCALAPPDATA"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#2639",
+        "microsoft/WindowsAppSDK#1083",
+        "microsoft/WindowsAppSDK#27",
+        "microsoft/WindowsAppSDK#6222",
+        "microsoft/WindowsAppSDK#2639",
+        "microsoft/WindowsAppSDK#2639",
+        "microsoft/WindowsAppSDK#1083",
+        "microsoft/WindowsAppSDK#27",
+        "microsoft/WindowsAppSDK#6222"
+      ]
+    },
+    {
+      "id": "appcontainer_identity_sharing",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_appcontainer_identity_sharing.md",
+      "title": "AppContainer for Win32 Apps & Named Object Sharing Between Packaged/Win32",
+      "area": "Runtime",
+      "symptoms": [
+        "You want to run a Win32/WinUI 3 MSIX app in an AppContainer sandbox",
+        "`Shell_NotifyIcon` returns access denied in AppContainer",
+        "You need to share named objects (mutexes, events) between packaged and Win32 apps",
+        "You're trying to configure `PartialTrustApplication` in a `.wapproj` packaging project"
+      ],
+      "errorCodes": [],
+      "keywords": [
+        "AppContainer",
+        "Win32",
+        "PartialTrustApplication",
+        "partial trust",
+        "sandboxing",
+        "named objects",
+        "security descriptor",
+        "PackageFamilyName",
+        "PFN",
+        "Shell_NotifyIcon",
+        "tray icon",
+        "MSIX",
+        "runFullTrust",
+        "permissiveLearningMode"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#175",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#219",
+        "microsoft/WindowsAppSDK#175",
+        "microsoft/WindowsAppSDK#175",
+        "microsoft/WindowsAppSDK#175"
+      ]
+    },
+    {
+      "id": "background_tasks_printing_tooling",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_background_tasks_printing_tooling.md",
+      "title": "Background Task Crashes, Print Preview Dark Theme & VS Tooling - Windows App SDK",
+      "area": "Runtime",
+      "symptoms": [
+        "Background task crashes with `STOWED_EXCEPTION` in `UniversalBGTask.dll`",
+        "Partner Center shows thousands of daily crashes from background task execution",
+        "Print preview window displays empty/blank content with dark theme",
+        "Cannot add new WinUI Page items in Visual Studio 2022"
+      ],
+      "errorCodes": [
+        "0x80004002",
+        "0x80004005",
+        "0x800706ba",
+        "0x80080204",
+        "0xC00CE169",
+        "E_FAIL",
+        "E_NOINTERFACE"
+      ],
+      "keywords": [
+        "UniversalBGTask",
+        "STOWED_EXCEPTION",
+        "background task",
+        "crash",
+        "0x80004005",
+        "0x80004002",
+        "0x800706ba",
+        "0x80080204",
+        "0xC00CE169",
+        "ACCESS_VIOLATION",
+        "PrintPreview",
+        "dark theme",
+        "RequestedTheme",
+        "empty preview",
+        "Visual Studio 2022",
+        "add page",
+        "new item"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#5870",
+        "microsoft/WindowsAppSDK#6086",
+        "microsoft/WindowsAppSDK#1236",
+        "microsoft/WindowsAppSDK#5870",
+        "microsoft/WindowsAppSDK#5870",
+        "microsoft/WindowsAppSDK#6086",
+        "microsoft/WindowsAppSDK#1236"
+      ]
+    },
+    {
+      "id": "deployment_singlefile_installer",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_deployment_singlefile_installer.md",
+      "title": "Error: \"XamlParseException: XAML parsing failed\" — Renamed Single-File Unpackaged App / Broken Runtime Links",
+      "area": "Deployment",
+      "symptoms": [
+        "You published a WinUI 3 app as single-file unpackaged and renamed the `.exe`",
+        "Error contains \"XamlParseException\" or \"XAML parsing failed\" after renaming",
+        "WASDK 2.0 Preview runtime download links return 404",
+        "WASDK 1.6.3 installers ship binaries that still crash despite documented fixes"
+      ],
+      "errorCodes": [],
+      "keywords": [
+        "XamlParseException",
+        "XAML parsing failed",
+        "single-file",
+        "unpackaged",
+        "rename executable",
+        "PublishSingleFile",
+        "runtime links broken",
+        "2.0 preview",
+        "installer binaries",
+        "MRM.dll crash"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6248",
+        "microsoft/WindowsAppSDK#6220",
+        "microsoft/WindowsAppSDK#4977",
+        "microsoft/WindowsAppSDK#6248",
+        "microsoft/WindowsAppSDK#6248",
+        "microsoft/WindowsAppSDK#6220",
+        "microsoft/WindowsAppSDK#6220",
+        "microsoft/WindowsAppSDK#4977",
+        "microsoft/WindowsAppSDK#4977",
+        "microsoft/WindowsAppSDK#4977"
+      ]
+    },
+    {
+      "id": "deployment_wasdk18_windows10",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_deployment_wasdk18_windows10.md",
+      "title": "Error: App Crash on Launch / \"FindPackagesByPackageFamily\" Failure — WASDK 1.8 on Windows 10",
+      "area": "Deployment",
+      "symptoms": [
+        "WinUI 3 / WASDK 1.8+ packaged app crashes immediately on launch on Windows 10 (builds 17763, 19041, 19045)",
+        "`FindPackagesByPackageFamily()` fails to locate WASDK 1.8 runtime packages on Windows 10",
+        "No error dialog — the app silently exits",
+        "Same app works fine on Windows 11"
+      ],
+      "errorCodes": [
+        "0x80070005",
+        "0xc000027b"
+      ],
+      "keywords": [
+        "FindPackagesByPackageFamily",
+        "WASDK 1.8",
+        "Windows 10",
+        "17763",
+        "19041",
+        "DeploymentManager",
+        "crash on launch",
+        "0x80070005",
+        "DDLM PackageFullName",
+        "MSIX.inventory"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6117",
+        "microsoft/WindowsAppSDK#6254",
+        "microsoft/WindowsAppSDK#6156",
+        "microsoft/WindowsAppSDK#6117",
+        "microsoft/WindowsAppSDK#6254",
+        "microsoft/WindowsAppSDK#6117",
+        "microsoft/WindowsAppSDK#6254",
+        "microsoft/WindowsAppSDK#6117",
+        "microsoft/WindowsAppSDK#6117",
+        "microsoft/WindowsAppSDK#6156",
+        "microsoft/WindowsAppSDK#6156",
+        "microsoft/WindowsAppSDK#6117",
+        "microsoft/WindowsAppSDK#6254"
+      ]
+    },
+    {
+      "id": "external_interop_issues",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_external_interop_issues.md",
+      "title": "External / Interop Issues — Packaging, Device APIs, and Widgets",
+      "area": "Runtime",
+      "symptoms": [
+        "MSIX bundle contains wrong (stale) NuGet DLL versions after package downgrade",
+        "Error `0x8007007A` on app startup from `FindPackagesByPackageFamily`",
+        "Bluetooth device pairing UI fails to show in WinUI 3 desktop app",
+        "NFC `ProximityDevice` events never fire after UWP → WinUI 3 migration",
+        "Widgets panel: first widget (alphabetically) cannot be added"
+      ],
+      "errorCodes": [
+        "0x8007007A",
+        "E_FILTER_HEAD"
+      ],
+      "keywords": [
+        "packaging project",
+        "NuGet",
+        "stale assembly",
+        "MSIX bundle",
+        "FindPackagesByPackageFamily",
+        "0x8007007A",
+        "ERROR_INSUFFICIENT_BUFFER",
+        "DeviceInformationPairing",
+        "Bluetooth",
+        "ProximityDevice",
+        "NFC",
+        "Widgets",
+        "WinUI 3"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6253",
+        "microsoft/WindowsAppSDK#6274",
+        "microsoft/WindowsAppSDK#3091",
+        "microsoft/WindowsAppSDK#4356",
+        "microsoft/WindowsAppSDK#6140",
+        "microsoft/WindowsAppSDK#6253",
+        "microsoft/WindowsAppSDK#6274",
+        "microsoft/WindowsAppSDK#3091",
+        "microsoft/WindowsAppSDK#4356",
+        "microsoft/WindowsAppSDK#6140"
+      ]
+    },
+    {
+      "id": "file_access_storage_pickers",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_file_access_storage_pickers.md",
+      "title": "Storage Picker Issues — File Access & Picker Dialogs",
+      "area": "Storage",
+      "symptoms": [
+        "Error contains \"E_FAIL\" or \"COMException\" when calling `PickSingleFileAsync()` or `PickSaveFileAsync()`",
+        "File/Folder picker dialog behaves unexpectedly (wrong extension, missing folders, wrong language)",
+        "Using `FileOpenPicker`, `FileSavePicker`, or `FolderPicker` from a WinUI 3 / Windows App SDK desktop app",
+        "Platform: Windows App SDK (packaged or unpackaged), WinUI 3"
+      ],
+      "errorCodes": [
+        "0x80004005",
+        "COMException",
+        "E_FAIL"
+      ],
+      "keywords": [
+        "FileOpenPicker",
+        "FileSavePicker",
+        "FolderPicker",
+        "storage pickers",
+        "file picker crash",
+        "COMException",
+        "E_FAIL",
+        "IInitializeWithWindow",
+        "DefaultFileExtension",
+        "FileTypeChoices",
+        "WSL",
+        "RTL",
+        "language override"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#1063",
+        "microsoft/WindowsAppSDK#2504",
+        "microsoft/WindowsAppSDK#5975",
+        "microsoft/WindowsAppSDK#6284",
+        "microsoft/WindowsAppSDK#6105",
+        "microsoft/WindowsAppSDK#2504",
+        "microsoft/WindowsAppSDK#1063",
+        "microsoft/WindowsAppSDK#5975",
+        "microsoft/WindowsAppSDK#6284",
+        "microsoft/WindowsAppSDK#6105"
+      ]
+    },
+    {
+      "id": "msix_build_publish_output_failures",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_msix_build_publish_output_failures.md",
+      "title": "Error: MSIX Build/Publish Output Failures (msixupload, msixbundle, appxsym)",
+      "area": "Deployment",
+      "symptoms": [
+        "Building an MSIX bundle or upload package fails with MSB4036 or MSB6006",
+        "`msbuild` with `UapAppxPackageBuildMode=StoreUpload` does not produce `.msixupload`",
+        "Publishing an MSIX from Visual Studio pollutes `.csproj.user` with `UapAppxPackageBuildMode`",
+        "`mspdbcmf.exe` exits with fatal error CMF1106 during symbol package generation"
+      ],
+      "errorCodes": [],
+      "keywords": [
+        "msixupload",
+        "msixbundle",
+        "appxsym",
+        "WinAppSdkSignAppxPackageBundle",
+        "MSB4036",
+        "MSB6006",
+        "mspdbcmf.exe",
+        "CMF1106",
+        "UapAppxPackageBuildMode",
+        "StoreUpload",
+        "StoreAndSideload"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#5820",
+        "microsoft/WindowsAppSDK#5825",
+        "microsoft/WindowsAppSDK#5501",
+        "microsoft/WindowsAppSDK#5537",
+        "microsoft/WindowsAppSDK#5820",
+        "microsoft/WindowsAppSDK#5820",
+        "microsoft/WindowsAppSDK#5825",
+        "microsoft/WindowsAppSDK#5825",
+        "microsoft/WindowsAppSDK#6183",
+        "microsoft/WindowsAppSDK#5501",
+        "microsoft/WindowsAppSDK#5501",
+        "microsoft/WindowsAppSDK#5537",
+        "microsoft/WindowsAppSDK#5537",
+        "microsoft/WindowsAppSDK#5820",
+        "microsoft/WindowsAppSDK#5825",
+        "microsoft/WindowsAppSDK#5501",
+        "microsoft/WindowsAppSDK#5537"
+      ]
+    },
+    {
+      "id": "msix_project_configuration_tooling",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_msix_project_configuration_tooling.md",
+      "title": "Error: MSIX Project Configuration & Build Tools Issues",
+      "area": "Deployment",
+      "symptoms": [
+        "Building MSIX packages without Visual Studio installed fails due to missing `mspdbcmf.exe`",
+        "Removing `EnableMsixTooling` from unpackaged app projects causes publish failures or missing `.pri` files",
+        "`AppxOSMinVersionReplaceManifestVersion=false` is ignored by single-project MSIX",
+        "Need to include multiple executables in a single MSIX package"
+      ],
+      "errorCodes": [],
+      "keywords": [
+        "EnableMsixTooling",
+        "Microsoft.Windows.SDK.BuildTools.MSIX",
+        "AppxOSMinVersionReplaceManifestVersion",
+        "AppxOSMaxVersionTestedReplaceManifestVersion",
+        "mspdbcmf.exe",
+        "wapproj",
+        "single-project MSIX",
+        "NuGet",
+        "Visual Studio",
+        "unpackaged",
+        "resources.pri"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6197",
+        "microsoft/WindowsAppSDK#3718",
+        "microsoft/WindowsAppSDK#5598",
+        "microsoft/WindowsAppSDK#5586",
+        "microsoft/WindowsAppSDK#6197",
+        "microsoft/WindowsAppSDK#3718",
+        "microsoft/WindowsAppSDK#3718",
+        "microsoft/WindowsAppSDK#5746",
+        "microsoft/WindowsAppSDK#3718",
+        "microsoft/WindowsAppSDK#5598",
+        "microsoft/WindowsAppSDK#5586",
+        "microsoft/WindowsAppSDK#5586",
+        "microsoft/WindowsAppSDK#5586",
+        "microsoft/WindowsAppSDK#6261",
+        "microsoft/WindowsAppSDK#3718",
+        "microsoft/WindowsAppSDK#6197",
+        "microsoft/WindowsAppSDK#3718",
+        "microsoft/WindowsAppSDK#5598",
+        "microsoft/WindowsAppSDK#5586"
+      ]
+    },
+    {
+      "id": "msix_selfcontained_packaging_conflicts",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_msix_selfcontained_packaging_conflicts.md",
+      "title": "Error: Self-Contained Deployment and MSIX Packaging Conflicts",
+      "area": "Deployment",
+      "symptoms": [
+        "Setting `WindowsAppSDKSelfContained=true` on a library project causes XAML parsing or codegen failures",
+        "Upgrading to WinAppSDK 1.8 causes COMException 0x80070490 (Element not found) related to `.pri` file naming changes",
+        "Build errors include `NETSDK1022` (duplicate items) or `WMC1012` (multiple ApplicationXaml) after upgrading"
+      ],
+      "errorCodes": [
+        "0x80070490",
+        "COMException"
+      ],
+      "keywords": [
+        "WindowsAppSDKSelfContained",
+        "XamlParseException",
+        "COMException",
+        "0x80070490",
+        "resources.pri",
+        "PRI",
+        "_OverrideGetPriIndexName",
+        "EnableMsixTooling",
+        "WMC1012",
+        "ApplicationXaml",
+        "codegen",
+        "library project"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6091",
+        "microsoft/WindowsAppSDK#5746",
+        "microsoft/WindowsAppSDK#6091",
+        "microsoft/WindowsAppSDK#6091",
+        "microsoft/WindowsAppSDK#6091",
+        "microsoft/WindowsAppSDK#6091",
+        "microsoft/WindowsAppSDK#5746",
+        "microsoft/WindowsAppSDK#5746",
+        "microsoft/WindowsAppSDK#5746",
+        "microsoft/WindowsAppSDK#6091",
+        "microsoft/WindowsAppSDK#5746"
+      ]
+    },
+    {
+      "id": "notifications_push_and_listener",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_notifications_push_and_listener.md",
+      "title": "Notification Issues — Push Notifications, Progress Data, and UserNotificationListener",
+      "area": "Runtime",
+      "symptoms": [
+        "Error contains `0x80070490` (\"Element not found\") when subscribing to notification events",
+        "Push notifications fail in unpackaged or non-Store apps",
+        "Cannot create an indeterminate progress bar in toast notifications via `AppNotificationProgressData`",
+        "`UserNotificationListener.NotificationChanged` throws `COMException` in unpackaged apps",
+        "Platform: Windows App SDK, WinUI 3, unpackaged or self-contained apps"
+      ],
+      "errorCodes": [
+        "0x80070490",
+        "COMException"
+      ],
+      "keywords": [
+        "AppNotification",
+        "push notification",
+        "unpackaged",
+        "COMException",
+        "0x80070490",
+        "Element not found",
+        "UserNotificationListener",
+        "NotificationChanged",
+        "AppNotificationProgressData",
+        "IsIndeterminate",
+        "indeterminate progress bar",
+        "toast notification"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#334",
+        "microsoft/WindowsAppSDK#2231",
+        "microsoft/WindowsAppSDK#6172",
+        "microsoft/WindowsAppSDK#334",
+        "microsoft/WindowsAppSDK#2231",
+        "microsoft/WindowsAppSDK#6172"
+      ]
+    },
+    {
+      "id": "resources_mrt_localization",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_resources_mrt_localization.md",
+      "title": "Error: \"COMException: NamedResource Not Found\" / PrimaryLanguageOverride Not Working — MRT Resource Loading",
+      "area": "Runtime",
+      "symptoms": [
+        "`ResourceLoader.GetString()` throws `COMException` for keys containing `.` (dots)",
+        "`PrimaryLanguageOverride` does not work in unpackaged WinUI 3 apps",
+        "`x:Uid` XAML localization fails for unpackaged apps",
+        "Signing `Microsoft.Windows.ApplicationModel.Resources.Projection` fails during build"
+      ],
+      "errorCodes": [
+        "COMException"
+      ],
+      "keywords": [
+        "ResourceLoader",
+        "GetString",
+        "COMException",
+        "NamedResource Not Found",
+        "PrimaryLanguageOverride",
+        "unpackaged",
+        "localization",
+        "x:Uid",
+        "MRTCore",
+        "Resources.resw",
+        "dot in key",
+        "signing projection"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#6247",
+        "microsoft/WindowsAppSDK#1687",
+        "microsoft/WindowsAppSDK#3705",
+        "microsoft/WindowsAppSDK#6247",
+        "microsoft/WindowsAppSDK#1687",
+        "microsoft/WindowsAppSDK#1687",
+        "microsoft/WindowsAppSDK#1687",
+        "microsoft/WindowsAppSDK#1687",
+        "microsoft/WindowsAppSDK#1687",
+        "microsoft/WindowsAppSDK#1687",
+        "microsoft/WindowsAppSDK#3705",
+        "microsoft/WindowsAppSDK#3705"
+      ]
+    },
+    {
+      "id": "runtime_winrt_interop",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_runtime_winrt_interop.md",
+      "title": "WinRT Interop, AOT Compatibility & Runtime Version Issues - Windows App SDK",
+      "area": "Runtime",
+      "symptoms": [
+        "Theme switching code fails silently when app is published with Native AOT",
+        "`Window.Content as FrameworkElement` returns `null` in AOT builds",
+        "`AppActivationArguments.Data` is `WinRT.IInspectable` instead of a typed activation args object",
+        "`ReleaseInfo.AsString` returns wrong version (e.g., \"1.7.0\" on 1.7.1)",
+        "HDR content renders as SDR when using `CompositionDrawingSurface` with float16 pixel format"
+      ],
+      "errorCodes": [],
+      "keywords": [
+        "AOT",
+        "trimming",
+        "FrameworkElement",
+        "theme",
+        "LaunchActivatedEventArgs",
+        "WinRT",
+        "CsWinRT",
+        "IInspectable",
+        "ReleaseInfo",
+        "version string",
+        "HDR",
+        "CompositionDrawingSurface",
+        "scRGB",
+        "swap chain",
+        "DirectXPixelFormat"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#5389",
+        "microsoft/WindowsAppSDK#6219",
+        "microsoft/WindowsAppSDK#5323",
+        "microsoft/WindowsAppSDK#6291",
+        "microsoft/WindowsAppSDK#5389",
+        "microsoft/WindowsAppSDK#6219",
+        "microsoft/WindowsAppSDK#5323",
+        "microsoft/WindowsAppSDK#6291"
+      ]
+    },
+    {
+      "id": "widgets_customization_display",
+      "path": "E:\\issue-tsg-generator\\output\\tsg_widgets_customization_display.md",
+      "title": "Widget Customization and Display Failures - Windows Widgets Platform",
+      "area": "Widgets",
+      "symptoms": [
+        "Widget customization panel opens but shows no content",
+        "`OnCustomizationRequested` callback is never invoked by widget host",
+        "First widget in alphabetical list cannot be added to widget board",
+        "Widget \"Add\" button stays inactive until switching to another widget and back"
+      ],
+      "errorCodes": [],
+      "keywords": [
+        "widget customization",
+        "template JSON",
+        "OnCustomizationRequested",
+        "widget board",
+        "add widget",
+        "widget list",
+        "Widgets panel"
+      ],
+      "severity": "critical",
+      "relatedIssues": [
+        "microsoft/WindowsAppSDK#3926",
+        "microsoft/WindowsAppSDK#6140",
+        "microsoft/WindowsAppSDK#3926",
+        "microsoft/WindowsAppSDK#6140"
+      ]
+    }
+  ],
+  "areaCounts": {
+    "Storage": 3,
+    "Runtime": 9,
+    "Deployment": 7,
+    "Widgets": 2,
+    "WinML": 1
+  },
+  "invertedIndex": {
+    "byErrorCode": {
+      "0xc000027b": [
+        "known_issue_performance_crashes",
+        "deployment_wasdk18_windows10"
+      ],
+      "COMException": [
+        "known_issues_external_notifications",
+        "file_access_storage_pickers",
+        "msix_selfcontained_packaging_conflicts",
+        "notifications_push_and_listener",
+        "resources_mrt_localization"
+      ],
+      "0x80004002": [
+        "background_tasks_printing_tooling"
+      ],
+      "0x80004005": [
+        "background_tasks_printing_tooling",
+        "file_access_storage_pickers"
+      ],
+      "0x800706ba": [
+        "background_tasks_printing_tooling"
+      ],
+      "0x80080204": [
+        "background_tasks_printing_tooling"
+      ],
+      "0xC00CE169": [
+        "background_tasks_printing_tooling"
+      ],
+      "E_FAIL": [
+        "background_tasks_printing_tooling",
+        "file_access_storage_pickers"
+      ],
+      "E_NOINTERFACE": [
+        "background_tasks_printing_tooling"
+      ],
+      "0x80070005": [
+        "deployment_wasdk18_windows10"
+      ],
+      "0x8007007A": [
+        "external_interop_issues"
+      ],
+      "E_FILTER_HEAD": [
+        "external_interop_issues"
+      ],
+      "0x80070490": [
+        "msix_selfcontained_packaging_conflicts",
+        "notifications_push_and_listener"
+      ]
+    },
+    "byKeyword": {
+      "AppWindow": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "GetCurrentPlacement": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "SaveCurrentPlacement": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "PlacementRestorationBehavior": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "PlacementInfo": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "DisplayArea": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "GetMetricsFromWindowId": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "PersistedStateId": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "experimental API": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "StorageFile": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "shortcut": [
+        "known_issue_api_docs_storagefile"
+      ],
+      ".lnk": [
+        "known_issue_api_docs_storagefile"
+      ],
+      ".url": [
+        "known_issue_api_docs_storagefile"
+      ],
+      ".wsh": [
+        "known_issue_api_docs_storagefile"
+      ],
+      "file handler": [
+        "known_issue_api_docs_storagefile",
+        "api_gaps_unpackaged_support"
+      ],
+      "PrimaryLanguageOverride": [
+        "known_issue_api_gaps_localization",
+        "resources_mrt_localization"
+      ],
+      "null": [
+        "known_issue_api_gaps_localization"
+      ],
+      "empty": [
+        "known_issue_api_gaps_localization"
+      ],
+      "not persisted": [
+        "known_issue_api_gaps_localization"
+      ],
+      "localization": [
+        "known_issue_api_gaps_localization",
+        "resources_mrt_localization"
+      ],
+      "Microsoft.Windows.Globalization": [
+        "known_issue_api_gaps_localization"
+      ],
+      "MovePackageToVolumeAsync": [
+        "known_issue_api_gaps_localization"
+      ],
+      "PackageDeploymentManager": [
+        "known_issue_api_gaps_localization"
+      ],
+      "WASDK 2.0": [
+        "known_issue_api_gaps_localization"
+      ],
+      "Microsoft.Windows.SDK.BuildTools.MSIX": [
+        "known_issue_msix_buildtools_defects",
+        "msix_project_configuration_tooling"
+      ],
+      "AppxSymbolPackageEnabled": [
+        "known_issue_msix_buildtools_defects"
+      ],
+      "_GenerateAppxSymbolPackage": [
+        "known_issue_msix_buildtools_defects"
+      ],
+      "mspdbcmf.exe": [
+        "known_issue_msix_buildtools_defects",
+        "msix_build_publish_output_failures",
+        "msix_project_configuration_tooling"
+      ],
+      "msixbundle": [
+        "known_issue_msix_buildtools_defects",
+        "msix_build_publish_output_failures"
+      ],
+      "Dependencies folder": [
+        "known_issue_msix_buildtools_defects"
+      ],
+      "Publish error": [
+        "known_issue_msix_buildtools_defects"
+      ],
+      "wapproj": [
+        "known_issue_msix_buildtools_defects",
+        "msix_project_configuration_tooling"
+      ],
+      "documentation": [
+        "known_issue_msix_buildtools_defects"
+      ],
+      "roadmap": [
+        "known_issue_msix_buildtools_defects"
+      ],
+      "Microsoft.WindowsAppSDK.Foundation": [
+        "known_issue_msix_nuget_license"
+      ],
+      "bootstrap DLL": [
+        "known_issue_msix_nuget_license"
+      ],
+      "NuGet license": [
+        "known_issue_msix_nuget_license"
+      ],
+      "redistribution": [
+        "known_issue_msix_nuget_license"
+      ],
+      "Microsoft.WindowsAppSDK": [
+        "known_issue_msix_nuget_license"
+      ],
+      "license terms": [
+        "known_issue_msix_nuget_license"
+      ],
+      "WinRT": [
+        "known_issue_performance_crashes",
+        "runtime_winrt_interop"
+      ],
+      "ApplicationData": [
+        "known_issue_performance_crashes",
+        "api_gaps_unpackaged_support"
+      ],
+      "Package.Current": [
+        "known_issue_performance_crashes"
+      ],
+      "performance": [
+        "known_issue_performance_crashes"
+      ],
+      "latency": [
+        "known_issue_performance_crashes"
+      ],
+      "25ms": [
+        "known_issue_performance_crashes"
+      ],
+      "admin mode": [
+        "known_issue_performance_crashes"
+      ],
+      "elevated": [
+        "known_issue_performance_crashes"
+      ],
+      "packaged app crash": [
+        "known_issue_performance_crashes"
+      ],
+      "Windows 10": [
+        "known_issue_performance_crashes",
+        "deployment_wasdk18_windows10"
+      ],
+      "0xc000027b": [
+        "known_issue_performance_crashes"
+      ],
+      "widget settings": [
+        "known_issue_widget_platform_defects"
+      ],
+      "close button": [
+        "known_issue_widget_platform_defects"
+      ],
+      "reload": [
+        "known_issue_widget_platform_defects"
+      ],
+      "widget board": [
+        "known_issue_widget_platform_defects",
+        "widgets_customization_display"
+      ],
+      "widget not appearing": [
+        "known_issue_widget_platform_defects"
+      ],
+      "reinstall": [
+        "known_issue_widget_platform_defects",
+        "known_issues_external_notifications"
+      ],
+      "customize widget": [
+        "known_issue_widget_platform_defects"
+      ],
+      "Windows Widgets": [
+        "known_issue_widget_platform_defects"
+      ],
+      "WidgetProviders": [
+        "known_issue_widget_platform_defects"
+      ],
+      "MSIX": [
+        "known_issues_external_notifications",
+        "appcontainer_identity_sharing"
+      ],
+      "uninstall": [
+        "known_issues_external_notifications"
+      ],
+      "data retention": [
+        "known_issues_external_notifications"
+      ],
+      "app data": [
+        "known_issues_external_notifications"
+      ],
+      "keep data": [
+        "known_issues_external_notifications"
+      ],
+      "game data": [
+        "known_issues_external_notifications"
+      ],
+      "SettingsIdentifier": [
+        "known_issues_file_access_pickers"
+      ],
+      "FileOpenPicker": [
+        "known_issues_file_access_pickers",
+        "file_access_storage_pickers"
+      ],
+      "FileSavePicker": [
+        "known_issues_file_access_pickers",
+        "file_access_storage_pickers"
+      ],
+      "FolderPicker": [
+        "known_issues_file_access_pickers",
+        "file_access_storage_pickers"
+      ],
+      "last used location": [
+        "known_issues_file_access_pickers"
+      ],
+      "Microsoft.Windows.Storage.Pickers": [
+        "known_issues_file_access_pickers"
+      ],
+      "unpackaged": [
+        "api_gaps_unpackaged_support",
+        "deployment_singlefile_installer",
+        "msix_project_configuration_tooling",
+        "notifications_push_and_listener",
+        "resources_mrt_localization"
+      ],
+      "AppInfo": [
+        "api_gaps_unpackaged_support"
+      ],
+      "package identity": [
+        "api_gaps_unpackaged_support"
+      ],
+      "StorageFolder": [
+        "api_gaps_unpackaged_support"
+      ],
+      "PackageVolume": [
+        "api_gaps_unpackaged_support"
+      ],
+      "FindPackage": [
+        "api_gaps_unpackaged_support"
+      ],
+      "content type": [
+        "api_gaps_unpackaged_support"
+      ],
+      "file association": [
+        "api_gaps_unpackaged_support"
+      ],
+      "manifest": [
+        "api_gaps_unpackaged_support"
+      ],
+      "LOCALAPPDATA": [
+        "api_gaps_unpackaged_support"
+      ],
+      "AppContainer": [
+        "appcontainer_identity_sharing"
+      ],
+      "Win32": [
+        "appcontainer_identity_sharing"
+      ],
+      "PartialTrustApplication": [
+        "appcontainer_identity_sharing"
+      ],
+      "partial trust": [
+        "appcontainer_identity_sharing"
+      ],
+      "sandboxing": [
+        "appcontainer_identity_sharing"
+      ],
+      "named objects": [
+        "appcontainer_identity_sharing"
+      ],
+      "security descriptor": [
+        "appcontainer_identity_sharing"
+      ],
+      "PackageFamilyName": [
+        "appcontainer_identity_sharing"
+      ],
+      "PFN": [
+        "appcontainer_identity_sharing"
+      ],
+      "Shell_NotifyIcon": [
+        "appcontainer_identity_sharing"
+      ],
+      "tray icon": [
+        "appcontainer_identity_sharing"
+      ],
+      "runFullTrust": [
+        "appcontainer_identity_sharing"
+      ],
+      "permissiveLearningMode": [
+        "appcontainer_identity_sharing"
+      ],
+      "UniversalBGTask": [
+        "background_tasks_printing_tooling"
+      ],
+      "STOWED_EXCEPTION": [
+        "background_tasks_printing_tooling"
+      ],
+      "background task": [
+        "background_tasks_printing_tooling"
+      ],
+      "crash": [
+        "background_tasks_printing_tooling"
+      ],
+      "0x80004005": [
+        "background_tasks_printing_tooling"
+      ],
+      "0x80004002": [
+        "background_tasks_printing_tooling"
+      ],
+      "0x800706ba": [
+        "background_tasks_printing_tooling"
+      ],
+      "0x80080204": [
+        "background_tasks_printing_tooling"
+      ],
+      "0xC00CE169": [
+        "background_tasks_printing_tooling"
+      ],
+      "ACCESS_VIOLATION": [
+        "background_tasks_printing_tooling"
+      ],
+      "PrintPreview": [
+        "background_tasks_printing_tooling"
+      ],
+      "dark theme": [
+        "background_tasks_printing_tooling"
+      ],
+      "RequestedTheme": [
+        "background_tasks_printing_tooling"
+      ],
+      "empty preview": [
+        "background_tasks_printing_tooling"
+      ],
+      "Visual Studio 2022": [
+        "background_tasks_printing_tooling"
+      ],
+      "add page": [
+        "background_tasks_printing_tooling"
+      ],
+      "new item": [
+        "background_tasks_printing_tooling"
+      ],
+      "XamlParseException": [
+        "deployment_singlefile_installer",
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "XAML parsing failed": [
+        "deployment_singlefile_installer"
+      ],
+      "single-file": [
+        "deployment_singlefile_installer"
+      ],
+      "rename executable": [
+        "deployment_singlefile_installer"
+      ],
+      "PublishSingleFile": [
+        "deployment_singlefile_installer"
+      ],
+      "runtime links broken": [
+        "deployment_singlefile_installer"
+      ],
+      "2.0 preview": [
+        "deployment_singlefile_installer"
+      ],
+      "installer binaries": [
+        "deployment_singlefile_installer"
+      ],
+      "MRM.dll crash": [
+        "deployment_singlefile_installer"
+      ],
+      "FindPackagesByPackageFamily": [
+        "deployment_wasdk18_windows10",
+        "external_interop_issues"
+      ],
+      "WASDK 1.8": [
+        "deployment_wasdk18_windows10"
+      ],
+      "17763": [
+        "deployment_wasdk18_windows10"
+      ],
+      "19041": [
+        "deployment_wasdk18_windows10"
+      ],
+      "DeploymentManager": [
+        "deployment_wasdk18_windows10"
+      ],
+      "crash on launch": [
+        "deployment_wasdk18_windows10"
+      ],
+      "0x80070005": [
+        "deployment_wasdk18_windows10"
+      ],
+      "DDLM PackageFullName": [
+        "deployment_wasdk18_windows10"
+      ],
+      "MSIX.inventory": [
+        "deployment_wasdk18_windows10"
+      ],
+      "packaging project": [
+        "external_interop_issues"
+      ],
+      "NuGet": [
+        "external_interop_issues",
+        "msix_project_configuration_tooling"
+      ],
+      "stale assembly": [
+        "external_interop_issues"
+      ],
+      "MSIX bundle": [
+        "external_interop_issues"
+      ],
+      "0x8007007A": [
+        "external_interop_issues"
+      ],
+      "ERROR_INSUFFICIENT_BUFFER": [
+        "external_interop_issues"
+      ],
+      "DeviceInformationPairing": [
+        "external_interop_issues"
+      ],
+      "Bluetooth": [
+        "external_interop_issues"
+      ],
+      "ProximityDevice": [
+        "external_interop_issues"
+      ],
+      "NFC": [
+        "external_interop_issues"
+      ],
+      "Widgets": [
+        "external_interop_issues"
+      ],
+      "WinUI 3": [
+        "external_interop_issues"
+      ],
+      "storage pickers": [
+        "file_access_storage_pickers"
+      ],
+      "file picker crash": [
+        "file_access_storage_pickers"
+      ],
+      "COMException": [
+        "file_access_storage_pickers",
+        "msix_selfcontained_packaging_conflicts",
+        "notifications_push_and_listener",
+        "resources_mrt_localization"
+      ],
+      "E_FAIL": [
+        "file_access_storage_pickers"
+      ],
+      "IInitializeWithWindow": [
+        "file_access_storage_pickers"
+      ],
+      "DefaultFileExtension": [
+        "file_access_storage_pickers"
+      ],
+      "FileTypeChoices": [
+        "file_access_storage_pickers"
+      ],
+      "WSL": [
+        "file_access_storage_pickers"
+      ],
+      "RTL": [
+        "file_access_storage_pickers"
+      ],
+      "language override": [
+        "file_access_storage_pickers"
+      ],
+      "msixupload": [
+        "msix_build_publish_output_failures"
+      ],
+      "appxsym": [
+        "msix_build_publish_output_failures"
+      ],
+      "WinAppSdkSignAppxPackageBundle": [
+        "msix_build_publish_output_failures"
+      ],
+      "MSB4036": [
+        "msix_build_publish_output_failures"
+      ],
+      "MSB6006": [
+        "msix_build_publish_output_failures"
+      ],
+      "CMF1106": [
+        "msix_build_publish_output_failures"
+      ],
+      "UapAppxPackageBuildMode": [
+        "msix_build_publish_output_failures"
+      ],
+      "StoreUpload": [
+        "msix_build_publish_output_failures"
+      ],
+      "StoreAndSideload": [
+        "msix_build_publish_output_failures"
+      ],
+      "EnableMsixTooling": [
+        "msix_project_configuration_tooling",
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "AppxOSMinVersionReplaceManifestVersion": [
+        "msix_project_configuration_tooling"
+      ],
+      "AppxOSMaxVersionTestedReplaceManifestVersion": [
+        "msix_project_configuration_tooling"
+      ],
+      "single-project MSIX": [
+        "msix_project_configuration_tooling"
+      ],
+      "Visual Studio": [
+        "msix_project_configuration_tooling"
+      ],
+      "resources.pri": [
+        "msix_project_configuration_tooling",
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "WindowsAppSDKSelfContained": [
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "0x80070490": [
+        "msix_selfcontained_packaging_conflicts",
+        "notifications_push_and_listener"
+      ],
+      "PRI": [
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "_OverrideGetPriIndexName": [
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "WMC1012": [
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "ApplicationXaml": [
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "codegen": [
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "library project": [
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "AppNotification": [
+        "notifications_push_and_listener"
+      ],
+      "push notification": [
+        "notifications_push_and_listener"
+      ],
+      "Element not found": [
+        "notifications_push_and_listener"
+      ],
+      "UserNotificationListener": [
+        "notifications_push_and_listener"
+      ],
+      "NotificationChanged": [
+        "notifications_push_and_listener"
+      ],
+      "AppNotificationProgressData": [
+        "notifications_push_and_listener"
+      ],
+      "IsIndeterminate": [
+        "notifications_push_and_listener"
+      ],
+      "indeterminate progress bar": [
+        "notifications_push_and_listener"
+      ],
+      "toast notification": [
+        "notifications_push_and_listener"
+      ],
+      "ResourceLoader": [
+        "resources_mrt_localization"
+      ],
+      "GetString": [
+        "resources_mrt_localization"
+      ],
+      "NamedResource Not Found": [
+        "resources_mrt_localization"
+      ],
+      "x:Uid": [
+        "resources_mrt_localization"
+      ],
+      "MRTCore": [
+        "resources_mrt_localization"
+      ],
+      "Resources.resw": [
+        "resources_mrt_localization"
+      ],
+      "dot in key": [
+        "resources_mrt_localization"
+      ],
+      "signing projection": [
+        "resources_mrt_localization"
+      ],
+      "AOT": [
+        "runtime_winrt_interop"
+      ],
+      "trimming": [
+        "runtime_winrt_interop"
+      ],
+      "FrameworkElement": [
+        "runtime_winrt_interop"
+      ],
+      "theme": [
+        "runtime_winrt_interop"
+      ],
+      "LaunchActivatedEventArgs": [
+        "runtime_winrt_interop"
+      ],
+      "CsWinRT": [
+        "runtime_winrt_interop"
+      ],
+      "IInspectable": [
+        "runtime_winrt_interop"
+      ],
+      "ReleaseInfo": [
+        "runtime_winrt_interop"
+      ],
+      "version string": [
+        "runtime_winrt_interop"
+      ],
+      "HDR": [
+        "runtime_winrt_interop"
+      ],
+      "CompositionDrawingSurface": [
+        "runtime_winrt_interop"
+      ],
+      "scRGB": [
+        "runtime_winrt_interop"
+      ],
+      "swap chain": [
+        "runtime_winrt_interop"
+      ],
+      "DirectXPixelFormat": [
+        "runtime_winrt_interop"
+      ],
+      "widget customization": [
+        "widgets_customization_display"
+      ],
+      "template JSON": [
+        "widgets_customization_display"
+      ],
+      "OnCustomizationRequested": [
+        "widgets_customization_display"
+      ],
+      "add widget": [
+        "widgets_customization_display"
+      ],
+      "widget list": [
+        "widgets_customization_display"
+      ],
+      "Widgets panel": [
+        "widgets_customization_display"
+      ]
+    },
+    "byArea": {
+      "Storage": [
+        "known_issue_api_docs_storagefile",
+        "known_issues_file_access_pickers",
+        "file_access_storage_pickers"
+      ],
+      "Runtime": [
+        "known_issue_api_gaps_localization",
+        "known_issue_performance_crashes",
+        "known_issues_external_notifications",
+        "appcontainer_identity_sharing",
+        "background_tasks_printing_tooling",
+        "external_interop_issues",
+        "notifications_push_and_listener",
+        "resources_mrt_localization",
+        "runtime_winrt_interop"
+      ],
+      "Deployment": [
+        "known_issue_msix_buildtools_defects",
+        "known_issue_msix_nuget_license",
+        "deployment_singlefile_installer",
+        "deployment_wasdk18_windows10",
+        "msix_build_publish_output_failures",
+        "msix_project_configuration_tooling",
+        "msix_selfcontained_packaging_conflicts"
+      ],
+      "Widgets": [
+        "known_issue_widget_platform_defects",
+        "widgets_customization_display"
+      ],
+      "WinML": [
+        "api_gaps_unpackaged_support"
+      ]
+    }
+  }
+}
