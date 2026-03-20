@@ -1,6 +1,6 @@
 # Notification Issues — Push Notifications, Progress Data, and UserNotificationListener
 
-**Keywords:** AppNotification, push notification, unpackaged, COMException, 0x80070490, Element not found, UserNotificationListener, NotificationChanged, AppNotificationProgressData, IsIndeterminate, indeterminate progress bar, toast notification, BadgeNotificationManager, REGDB_E_CLASSNOTREG, ScheduledToastNotification
+**Keywords:** AppNotification, push notification, unpackaged, COMException, 0x80070490, Element not found, UserNotificationListener, NotificationChanged, AppNotificationProgressData, IsIndeterminate, indeterminate progress bar, toast notification, BadgeNotificationManager, REGDB_E_CLASSNOTREG, ScheduledToastNotification, WNS, PFN, Azure AppId, 403
 
 **Error Example:**
 ```
@@ -33,6 +33,7 @@ System.Runtime.InteropServices.COMException (0x80070490): Element not found
 - [#6172](https://github.com/microsoft/WindowsAppSDK/issues/6172) — COMException 0x80070490 when subscribing to UserNotificationListener.NotificationChanged (Status: Open)
 - [#5050](https://github.com/microsoft/WindowsAppSDK/issues/5050) — Feature Request: Schedule toast notifications (Status: Open)
 - [#5307](https://github.com/microsoft/WindowsAppSDK/issues/5307) — COMException REGDB_E_CLASSNOTREG from BadgeNotificationManager (Status: Closed — resolved in 1.7.1)
+- [#6301](https://github.com/microsoft/WindowsAppSDK/issues/6301) — PFN-to-Azure-AppId mapping for WNS push notifications returns 403 (Status: Closed — resolved via email mapping)
 
 ---
 
@@ -157,6 +158,22 @@ notifier.AddToSchedule(scheduledToast);
 
 ---
 
+### Scenario 6: WNS Push Notifications Return 403 — PFN-to-Azure-AppId Mapping Not Registered
+
+**Cause:** When using the Entra/AAD auth flow for WNS push notifications, pushing to the channel URI returns HTTP 403. The token acquisition succeeds, and the client app obtains a valid channel URI via `PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync()`, but the server-side push fails. This occurs because the Package Family Name (PFN) has not been mapped to the Azure App ID in the WNS backend.
+> Source: @leonyambay in [#6301](https://github.com/microsoft/WindowsAppSDK/issues/6301)
+
+**Fix:**
+1. **Email the WNS team** at `Win_App_SDK_Push@microsoft.com` to request PFN-to-Azure-AppId mapping.
+2. Include your Package Family Name and Azure App Registration details.
+3. Follow the [Push notifications quickstart guide](https://learn.microsoft.com/en-us/windows/apps/develop/notifications/push-notifications/push-quickstart) for the complete setup process.
+
+> Source: @lauren-ciha (MEMBER) in [#6301](https://github.com/microsoft/WindowsAppSDK/issues/6301)
+
+**Verify:** After the mapping is confirmed by the WNS team, retry pushing to the channel URI — the 403 should be resolved.
+
+---
+
 ## ⚠️ Unverified / Community Suggestions
 
 > The following are community suggestions that have NOT been officially confirmed.
@@ -175,5 +192,5 @@ notifier.AddToSchedule(scheduledToast);
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.8
-**Sources:** #334, #2231, #6172, #5050, #5307
+**Updated:** 2026-03-20 | **Confidence:** 0.8
+**Sources:** #334, #2231, #6172, #5050, #5307, #6301

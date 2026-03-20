@@ -22,7 +22,7 @@ System.Runtime.InteropServices.COMException: 'The RPC server is unavailable.'
 
 ## Related Issues
 
-- [#5481](https://github.com/microsoft/WindowsAppSDK/issues/5481) - Exception triggered when calling `AppInstance.GetCurrent().GetActivatedEventArgs()` (Status: Open)
+- [#5481](https://github.com/microsoft/WindowsAppSDK/issues/5481) - Exception triggered when calling `AppInstance.GetCurrent().GetActivatedEventArgs()` (Status: Closed)
 
 ---
 
