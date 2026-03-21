@@ -1,5 +1,6 @@
 pillow
 numpy
-onnxruntime-winml
+# onnxruntime-winml is NOT available on PyPI — install from the Windows App SDK distribution:
+# https://learn.microsoft.com/windows/ai/windows-ml/
 wasdk-Microsoft.Windows.AI.MachineLearning[all]
 wasdk-Microsoft.Windows.ApplicationModel.DynamicDependency.Bootstrap
