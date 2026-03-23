@@ -1,12 +1,13 @@
 # Error: MSIX Build/Publish Output Failures (msixupload, msixbundle, appxsym)
 
-**Keywords:** msixupload, msixbundle, appxsym, WinAppSdkSignAppxPackageBundle, MSB4036, MSB6006, mspdbcmf.exe, CMF1106, UapAppxPackageBuildMode, StoreUpload, StoreAndSideload, APPX1101, resources.pri
+**Keywords:** msixupload, msixbundle, appxsym, WinAppSdkSignAppxPackageBundle, MSB4036, MSB6006, mspdbcmf.exe, CMF1106, UapAppxPackageBuildMode, StoreUpload, StoreAndSideload, APPX1101, resources.pri, Visual Studio, FastLink, PDB, MSIX NuGet
 
 **Error Examples:**
 ```
 error MSB4036: The "WinAppSdkSignAppxPackageBundle" task was not found.
 error MSB6006: "mspdbcmf.exe" have exited, fatal error CMF1106
 error APPX1101: Payload contains two or more files with the same destination path 'resources.pri'
+error MSB6006: "mspdbcmf.exe" exited with code 1. Visual Studio is required for MSIX packaging.
 ```
 
 ---
@@ -19,6 +20,7 @@ error APPX1101: Payload contains two or more files with the same destination pat
 - Publishing an MSIX from Visual Studio pollutes `.csproj.user` with `UapAppxPackageBuildMode`
 - `mspdbcmf.exe` exits with fatal error CMF1106 during symbol package generation
 - Building a project with WinUI integration tests fails with APPX1101 due to duplicate `resources.pri`
+- Attempting to use the `Microsoft.Windows.SDK.BuildTools.MSIX` NuGet package without Visual Studio installed fails due to missing `mspdbcmf.exe`
 
 → Check scenarios below for your specific cause
 
@@ -31,6 +33,7 @@ error APPX1101: Payload contains two or more files with the same destination pat
 - [#5501](https://github.com/microsoft/WindowsAppSDK/issues/5501) - UWP .NET 9 msbuild does not produce .msixupload file (Status: Open)
 - [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537) - Publishing MSIX influences future builds via UapAppxPackageBuildMode (Status: Open)
 - [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845) - Regression error APPX1101: Duplicate `resources.pri` in WinUI integration tests (Status: Open)
+- [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197) - You should be able to use the MSIX NuGet package without Visual Studio installed (Status: Closed/Fixed)
 
 ---
 
@@ -162,6 +165,19 @@ error APPX1101: Payload contains two or more files with the same destination pat
 
 ---
 
+### Scenario 6: MSIX NuGet Package Requires Visual Studio Installation
+
+**Cause:** The `Microsoft.Windows.SDK.BuildTools.MSIX` NuGet package has a hard-coded dependency on `mspdbcmf.exe`, which is typically installed with Visual Studio. This prevents developers using alternative IDEs (e.g., JetBrains Rider) or environments without Visual Studio from creating MSIX packages.
+> Source: @wjk in [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197)
+
+**Fix:** Update to the latest version of `Microsoft.Windows.SDK.BuildTools.MSIX` (1.8.260101001 or later). This version removes the hard dependency on Visual Studio for MSIX packaging.
+
+> ✅ Confirmed by: @wjk in [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197)
+
+**Verify:** Install the latest version of the NuGet package and run `dotnet publish` on a machine without Visual Studio installed. MSIX package generation should succeed.
+
+---
+
 ## ⚠️ Unverified / Community Suggestions
 
 > The following are community suggestions that have NOT been officially confirmed.
@@ -179,5 +195,5 @@ error APPX1101: Payload contains two or more files with the same destination pat
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.8
-**Sources:** [#5820](https://github.com/microsoft/WindowsAppSDK/issues/5820), [#5825](https://github.com/microsoft/WindowsAppSDK/issues/5825), [#5501](https://github.com/microsoft/WindowsAppSDK/issues/5501), [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537), [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845)
+**Updated:** 2026-03-23 | **Confidence:** 0.85
+**Sources:** [#5820](https://github.com/microsoft/WindowsAppSDK/issues/5820), [#5825](https://github.com/microsoft/WindowsAppSDK/issues/5825), [#5501](https://github.com/microsoft/WindowsAppSDK/issues/5501), [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537), [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845), [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197)

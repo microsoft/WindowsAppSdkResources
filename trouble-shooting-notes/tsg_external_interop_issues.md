@@ -1,6 +1,6 @@
 # External / Interop Issues — Packaging, Device APIs, and Widgets
 
-**Keywords:** packaging project, NuGet, stale assembly, MSIX bundle, FindPackagesByPackageFamily, 0x8007007A, ERROR_INSUFFICIENT_BUFFER, DeviceInformationPairing, Bluetooth, ProximityDevice, NFC, Widgets, WinUI 3, HybridWebView.js, build failure, WindowsAppSDK upgrade
+**Keywords:** packaging project, NuGet, stale assembly, MSIX bundle, FindPackagesByPackageFamily, 0x8007007A, ERROR_INSUFFICIENT_BUFFER, DeviceInformationPairing, Bluetooth, ProximityDevice, NFC, Widgets, WinUI 3, HybridWebView.js, build failure, WindowsAppSDK upgrade, PackageDeploymentManager, RegisterPackageAsync, RPC failure
 
 **Error Example:**
 ```
@@ -14,6 +14,10 @@ System.InvalidCastException
 ```
 Could not copy the file "C:\Users\Jochem\.nuget\packages\microsoft.maui.controls.core\9.0.120\lib\net9.0-windows10.0.19041\Microsoft.Maui\Handlers\HybridWebView\HybridWebView.js" because it was not found.
 ```
+```
+Exception thrown at 0x00007FFF613A83EA (KernelBase.dll) in PackageManagerRegisterTest.exe: WinRT originate error - 0x800706BE : 'The remote procedure call failed.'
+Exception thrown at 0x00007FFF613A83EA (KernelBase.dll) in PackageManagerRegisterTest.exe: 0x000006BE: The remote procedure call failed.
+```
 
 ---
 
@@ -26,6 +30,7 @@ Could not copy the file "C:\Users\Jochem\.nuget\packages\microsoft.maui.controls
 - NFC `ProximityDevice` events never fire after UWP → WinUI 3 migration
 - Widgets panel: first widget (alphabetically) cannot be added
 - Build fails with "Could not copy the file HybridWebView.js" after upgrading to Windows App SDK 1.8
+- `PackageDeploymentManager.RegisterPackageAsync()` fails with RPC error while `RegisterPackageByFullNameAsync()` succeeds
 
 → Check scenarios below for your specific cause
 
@@ -39,6 +44,7 @@ Could not copy the file "C:\Users\Jochem\.nuget\packages\microsoft.maui.controls
 - [#4356](https://github.com/microsoft/WindowsAppSDK/issues/4356) — ProximityDevice NFC events not triggered (Status: Open)
 - [#6140](https://github.com/microsoft/WindowsAppSDK/issues/6140) — Widget at top of list cannot be added until switching away (Status: Open)
 - [#6032](https://github.com/microsoft/WindowsAppSDK/issues/6032) — "Could not copy the file HybridWebView.js" when upgrading to 1.8.251106002 (Status: Closed)
+- [#4791](https://github.com/microsoft/WindowsAppSDK/issues/4791) — `PackageDeploymentManager.RegisterPackageAsync()` fails while `RegisterPackageByFullNameAsync()` succeeds (Status: Open)
 
 ---
 
@@ -51,16 +57,16 @@ Could not copy the file "C:\Users\Jochem\.nuget\packages\microsoft.maui.controls
 
 **Affected versions:** Visual Studio 2026, Windows App SDK (MSIX packaging), any NuGet package
 
-**Repro:**
-1. Reference `CommunityToolkit.Mvvm` version **8.3.2**, build MSIX bundle → DLL is 8.3.2.1 ✅
-2. Upgrade to **8.4.0**, Clean Solution, rebuild → DLL is 8.4.0.1 ✅
-3. Downgrade back to **8.3.2**, Clean Solution, rebuild → DLL is still **8.4.0.1** ⚠️
+**Repro:**  
+1. Reference `CommunityToolkit.Mvvm` version **8.3.2**, build MSIX bundle → DLL is 8.3.2.1 ✅  
+2. Upgrade to **8.4.0**, Clean Solution, rebuild → DLL is 8.4.0.1 ✅  
+3. Downgrade back to **8.3.2**, Clean Solution, rebuild → DLL is still **8.4.0.1** ⚠️  
 
-**Fix:**
-1. **Manually delete the packaging project output folders** before rebuilding:
-   - Delete `App1 (Package)\AppPackages\` folder
-   - Delete `App1 (Package)\bin\` and `App1 (Package)\obj\` folders
-2. **Force a full NuGet restore** after version change:
+**Fix:**  
+1. **Manually delete the packaging project output folders** before rebuilding:  
+   - Delete `App1 (Package)\AppPackages\` folder  
+   - Delete `App1 (Package)\bin\` and `App1 (Package)\obj\` folders  
+2. **Force a full NuGet restore** after version change:  
 ```powershell
 dotnet nuget locals all --clear
 dotnet restore
@@ -80,9 +86,9 @@ dotnet restore
 
 **Important note:** This exception surfaces only when **"Break when thrown"** is enabled for all exceptions in Visual Studio's Exception Settings. In normal execution, the SDK may handle this internally.
 
-**Fix:**
-1. **Check if this is a first-chance exception only.** Uncheck "Break when thrown" for `WinRT originate error` exceptions in Visual Studio → Exception Settings. If the app runs normally, this is an internal SDK exception that is caught and handled.
-2. If calling `FindPackagesByPackageFamily` in your own code, ensure proper two-call pattern:
+**Fix:**  
+1. **Check if this is a first-chance exception only.** Uncheck "Break when thrown" for `WinRT originate error` exceptions in Visual Studio → Exception Settings. If the app runs normally, this is an internal SDK exception that is caught and handled.  
+2. If calling `FindPackagesByPackageFamily` in your own code, ensure proper two-call pattern:  
 ```cpp
 UINT32 count = 0;
 UINT32 bufferLength = 0;
@@ -100,91 +106,22 @@ FindPackagesByPackageFamily(familyName, PACKAGE_FILTER_HEAD, &count, packageFull
 
 ---
 
-### Scenario 3: Device Pairing UI Does Not Display in WinUI 3 Desktop App
+### Known Issue: `PackageDeploymentManager.RegisterPackageAsync()` Fails While `RegisterPackageByFullNameAsync()` Succeeds
 
-**Cause:** Calling `DeviceInformationPairing.PairAsync()` in a WinUI 3 desktop app does not show the system Bluetooth pairing UI. The pairing process silently fails after a few seconds. The `IInitializeWithWindow` workaround documented for other UWP controls throws `System.InvalidCastException` when applied to `DeviceInformation` or `DeviceInformation.Pairing` because these objects do not implement `IInitializeWithWindow`.
-> Source: Issue [#3091](https://github.com/microsoft/WindowsAppSDK/issues/3091)
+**Cause:** `PackageDeploymentManager.RegisterPackageAsync()` fails with `PackageDeploymentStatus.CompletedFailure` and empty error properties, while the WinRT method `RegisterPackageByFullNameAsync()` succeeds. Debugging shows RPC failure (`0x800706BE`) and "Element not found" (`0x80070490`). This is due to improper memory handling in the WASDK method when passing `const hstring&` parameters.
+> Source: @DrusTheAxe in [#4791](https://github.com/microsoft/WindowsAppSDK/issues/4791)
 
-**Affected versions:** Windows App SDK 1.0+, Windows 11 (21H2)
-
-**Fix:**
-1. **Use `DeviceInformationCustomPairing`** with a custom handler instead of the automatic pairing UI:
-```csharp
-var customPairing = deviceInfo.Pairing.Custom;
-customPairing.PairingRequested += (sender, args) =>
-{
-    // Handle pairing ceremony in your own UI
-    args.Accept(); // or args.Accept(pin) for PIN-based pairing
-};
-var result = await customPairing.PairAsync(
-    DevicePairingKinds.ConfirmOnly | DevicePairingKinds.DisplayPin);
-```
-2. **Build your own pairing confirmation dialog** in WinUI 3 XAML since the system pairing UI is not compatible with Win32 desktop windows.
-3. For Bluetooth LE devices, consider using `BluetoothLEDevice.FromIdAsync()` followed by `DeviceInformation.Pairing.Custom.PairAsync()`.
-
-**Verify:** Initiate Bluetooth pairing and confirm your custom UI appears and the device pairs successfully.
-
----
-
-### Scenario 4: ProximityDevice NFC Events Not Triggered After UWP → WinUI 3 Migration
-
-**Cause:** `Windows.Networking.Proximity.ProximityDevice` events (e.g., `SubscribeForMessage("NDEF", ...)`) work in UWP but do not fire in WinUI 3 / Windows App SDK desktop apps. The `ProximityDevice` API is a UWP-era API that relies on the UWP app model and brokered device access, which is not fully supported in the Win32 desktop app model used by WinUI 3.
-> Source: Issue [#4356](https://github.com/microsoft/WindowsAppSDK/issues/4356)
-
-**Affected versions:** Windows App SDK 1.5.2+, Windows 11 22H2
-
-**Repro:**
-```csharp
-var proximityDevice = Windows.Networking.Proximity.ProximityDevice.GetDefault();
-var messageSubscriptionId = proximityDevice.SubscribeForMessage("NDEF", (device, message) =>
-{
-    Console.WriteLine(message.Data.ToArray()); // Never fires in WinUI 3
-});
-```
-
-**Fix / Workaround:**
-1. **Use the PC/SC (WinSCard) API** for NFC smart card access as an alternative to `ProximityDevice`:
-```csharp
-// Use Windows.Devices.SmartCards namespace
-var reader = await SmartCardReader.FromIdAsync(deviceId);
-reader.CardAdded += OnCardAdded;
-```
-2. **Use a third-party NFC library** that wraps the Win32 PC/SC APIs (e.g., PCSC-Sharp).
-3. Ensure `<DeviceCapability Name="proximity"/>` is declared in your app manifest (required but not sufficient for WinUI 3).
-4. As a last resort, **keep NFC functionality in a separate UWP component** or background task that communicates with the main WinUI 3 app.
-
-> ⚠️ This is an open issue. `ProximityDevice` is not officially supported in WinUI 3 desktop apps.
-
----
-
-### Scenario 5: Widget at Top of Alphabetical List Cannot Be Added
-
-**Cause:** In the Windows Widgets panel, a widget whose name starts with "A" (appearing at the top of the list) cannot be added — the "Add" button stays gray/inactive. Switching to another widget and back causes it to become addable. This appears to be a UI initialization/selection state bug in the Widgets Board.
-> Source: Issue [#6140](https://github.com/microsoft/WindowsAppSDK/issues/6140)
-
-**Affected versions:** Windows 11 25H2 (Build 26220.7535)
-
-**Fix / Workaround:**
-1. **Workaround for end users:** Select a different widget first, then switch back to the desired widget — it will become addable.
-2. **For widget developers:** Consider naming your widget to not appear first alphabetically as a temporary workaround (e.g., prefix with a space or non-"A" character), though this is not ideal.
-
-> ⚠️ This is a Windows Widgets Board bug — no SDK-level fix available. Report via Feedback Hub for Windows team triage.
-
----
-
-### Known Issue: Build Fails with "Could Not Copy the File HybridWebView.js" After Upgrading to Windows App SDK 1.8
-
-**Cause:** When upgrading from Windows App SDK 1.7 to 1.8, builds may fail with the error:  
-`Could not copy the file "HybridWebView.js" because it was not found.`  
-This issue appears to be related to a missing file in the `Microsoft.Maui.Controls.Core` package when used with Windows App SDK 1.8. The issue has been linked to a known problem in the .NET MAUI repository.
-> Source: @mfkl in [#6032](https://github.com/microsoft/WindowsAppSDK/issues/6032)
-
-**Affected versions:** Windows App SDK 1.8.251106002, .NET MAUI 9.0.120
+**Affected versions:** Windows App SDK 1.7+, Windows 11 22H2+
 
 **Workaround:**  
-No confirmed workaround is available. Cleaning the NuGet cache and rebuilding does not resolve the issue. The issue may be related to [dotnet/maui#32683](https://github.com/dotnet/maui/issues/32683).
+1. Use the WinRT method `PackageManager.RegisterPackageByFullNameAsync()` instead of the WASDK method:
+```csharp
+var packageManager = new Windows.Management.Deployment.PackageManager();
+await packageManager.RegisterPackageByFullNameAsync(packageFullName, null, DeploymentOptions.None);
+```
+2. Ensure your app is unpackaged or has the correct manifest capabilities (`packageManagement`).
 
-> ⚠️ This issue has been closed without a confirmed resolution. Developers encountering this issue are encouraged to monitor the linked .NET MAUI issue for updates.
+> ⚠️ This issue is under investigation. A fix is expected in a future servicing update.
 
 ---
 
@@ -195,6 +132,7 @@ No confirmed workaround is available. Cleaning the NuGet cache and rebuilding do
 - For stale NuGet caching (#6253): Some developers report that switching the solution configuration (Debug ↔ Release) and rebuilding can force correct DLL resolution.
 - For NFC (#4356): The original reporter tried `DeviceCapability` declarations and multiple SDK versions without success. There is no confirmed workaround within the WinUI 3 app model.
 - For HybridWebView.js build failure (#6032): Some users suggest manually copying the missing file from a working version of the package, though this is not officially recommended.
+- For `RegisterPackageAsync` (#4791): Some users report success by using unpackaged apps or switching to WinRT APIs.
 
 ---
 
@@ -207,8 +145,9 @@ No confirmed workaround is available. Cleaning the NuGet cache and rebuilding do
 - [Windows Widgets overview](https://learn.microsoft.com/en-us/windows/apps/develop/widgets/)
 - [MSIX packaging documentation](https://learn.microsoft.com/en-us/windows/msix/)
 - [dotnet/maui#32683](https://github.com/dotnet/maui/issues/32683)
+- [PackageManager API (WinRT)](https://learn.microsoft.com/en-us/uwp/api/windows.management.deployment.packagemanager)
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.6
-**Sources:** #6253, #6274, #3091, #4356, #6140, #6032
+**Updated:** 2026-03-23 | **Confidence:** 0.7
+**Sources:** #6253, #6274, #3091, #4356, #6140, #6032, #4791
