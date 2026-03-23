@@ -5,8 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "winappsdk-Foundation",
-    "winappsdk-InteractiveExperiences"
+    # winappsdk-Foundation and winappsdk-InteractiveExperiences are NOT on PyPI.
+    # Install them from the local wheels/ directory via the find-links setting below.
 ]
 
 [build-system]

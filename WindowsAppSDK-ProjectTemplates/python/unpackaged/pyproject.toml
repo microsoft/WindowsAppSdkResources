@@ -5,7 +5,8 @@ description = "Simple WinApp SDK file picker example"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "winappsdk-Foundation"
+    # winappsdk-Foundation is NOT on PyPI.
+    # Install it from the local wheels/ directory via the find-links setting below.
 ]
 
 [project.scripts]
