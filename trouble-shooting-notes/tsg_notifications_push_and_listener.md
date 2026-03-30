@@ -1,6 +1,6 @@
 # Notification Issues — Push Notifications, Progress Data, and UserNotificationListener
 
-**Keywords:** AppNotification, push notification, unpackaged, COMException, 0x80070490, Element not found, UserNotificationListener, NotificationChanged, AppNotificationProgressData, IsIndeterminate, indeterminate progress bar, toast notification, BadgeNotificationManager, REGDB_E_CLASSNOTREG, ScheduledToastNotification, WNS, PFN, Azure AppId, 403
+**Keywords:** AppNotification, push notification, unpackaged, COMException, 0x80070490, Element not found, UserNotificationListener, NotificationChanged, AppNotificationProgressData, IsIndeterminate, indeterminate progress bar, toast notification, BadgeNotificationManager, REGDB_E_CLASSNOTREG, ScheduledToastNotification, WNS, PFN, Azure AppId, 403, Self-Contained, Runtime package, Microsoft.WindowsAppRuntime.Insights.Resource.dll
 
 **Error Example:**
 ```
@@ -20,6 +20,7 @@ System.Runtime.InteropServices.COMException (0x80070490): Element not found
 - `UserNotificationListener.NotificationChanged` throws `COMException` in unpackaged apps
 - BadgeNotificationManager.Current throws `COMException REGDB_E_CLASSNOTREG`
 - Missing API for scheduling toast notifications in Windows App SDK
+- `AppNotificationManager.Default.Register()` throws `COMException` in a self-contained unpackaged app
 - Platform: Windows App SDK, WinUI 3, unpackaged or self-contained apps
 
 → Check scenarios below for your specific cause
@@ -34,6 +35,7 @@ System.Runtime.InteropServices.COMException (0x80070490): Element not found
 - [#5050](https://github.com/microsoft/WindowsAppSDK/issues/5050) — Feature Request: Schedule toast notifications (Status: Open)
 - [#5307](https://github.com/microsoft/WindowsAppSDK/issues/5307) — COMException REGDB_E_CLASSNOTREG from BadgeNotificationManager (Status: Closed — resolved in 1.7.1)
 - [#6301](https://github.com/microsoft/WindowsAppSDK/issues/6301) — PFN-to-Azure-AppId mapping for WNS push notifications returns 403 (Status: Closed — resolved via email mapping)
+- [#6071](https://github.com/microsoft/WindowsAppSDK/issues/6071) — Cannot register AppNotification callback without installing Runtime package for Self-Contained Unpackaged app (Status: Open)
 
 ---
 
@@ -174,6 +176,17 @@ notifier.AddToSchedule(scheduledToast);
 
 ---
 
+### Scenario 7: Cannot Register AppNotification Callback Without Installing Runtime Package for Self-Contained Unpackaged App
+
+**Cause:** In a self-contained unpackaged app, calling `AppNotificationManager.Default.Register()` throws a `COMException` with the error message: "The specified module could not be found. Unable to load resource dll. Microsoft.WindowsAppRuntime.Insights.Resource.dll." This occurs despite the app being self-contained and not requiring the runtime package.
+> Source: @aepot in [#6071](https://github.com/microsoft/WindowsAppSDK/issues/6071)
+
+**Status:** 🔄 **Known Issue** — No confirmed solution yet.
+
+**Workaround:** Install the **Microsoft.WindowsAppSDK.Runtime** package manually, even for self-contained apps.
+
+---
+
 ## ⚠️ Unverified / Community Suggestions
 
 > The following are community suggestions that have NOT been officially confirmed.
@@ -192,5 +205,5 @@ notifier.AddToSchedule(scheduledToast);
 
 ---
 
-**Updated:** 2026-03-20 | **Confidence:** 0.8
-**Sources:** #334, #2231, #6172, #5050, #5307, #6301
+**Updated:** 2026-03-30 | **Confidence:** 0.8
+**Sources:** #334, #2231, #6172, #5050, #5307, #6301, #6071

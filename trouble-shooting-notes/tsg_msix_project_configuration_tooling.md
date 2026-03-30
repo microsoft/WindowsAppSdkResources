@@ -1,6 +1,6 @@
 # Error: MSIX Project Configuration & Build Tools Issues
 
-**Keywords:** EnableMsixTooling, Microsoft.Windows.SDK.BuildTools.MSIX, AppxOSMinVersionReplaceManifestVersion, AppxOSMaxVersionTestedReplaceManifestVersion, mspdbcmf.exe, wapproj, single-project MSIX, NuGet, Visual Studio, unpackaged, resources.pri, DebugType, APPX1101, APPXUPLOAD, buildTransitive, CustomBeforeMicrosoftCommonTargets, dotnet msbuild, symbols package
+**Keywords:** EnableMsixTooling, Microsoft.Windows.SDK.BuildTools.MSIX, AppxOSMinVersionReplaceManifestVersion, AppxOSMaxVersionTestedReplaceManifestVersion, mspdbcmf.exe, wapproj, single-project MSIX, NuGet, Visual Studio, unpackaged, resources.pri, DebugType, APPX1101, APPXUPLOAD, buildTransitive, CustomBeforeMicrosoftCommonTargets, dotnet msbuild, symbols package, PublishError, MetadataNotFound
 
 **Error Examples:**
 ```
@@ -11,6 +11,7 @@ error: APPX1101 - Payload contains two or more files with the same destination p
 error: Missing APPXUPLOAD file for store submission
 error: CustomBeforeMicrosoftCommonTargets reassignment breaks MSIX build tools
 warning: Path to `mspdbcmf.exe` could not be found. A symbols package will not be generated
+error: Metadata file 'Test.WinUI.dll' could not be found during Publish
 ```
 
 ---
@@ -26,6 +27,7 @@ warning: Path to `mspdbcmf.exe` could not be found. A symbols package will not b
 - Unable to generate `.appxupload` files for store submission
 - MSIX build tools fail due to `CustomBeforeMicrosoftCommonTargets` reassignment
 - Building MSIX packages using `dotnet msbuild` or `dotnet publish` fails to generate symbols package due to missing `mspdbcmf.exe`
+- Publishing unpackaged apps fails with "Metadata file 'Test.WinUI.dll' could not be found"
 
 → Check scenarios below for your specific cause
 
@@ -43,6 +45,7 @@ warning: Path to `mspdbcmf.exe` could not be found. A symbols package will not b
 - [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811) - CustomBeforeMicrosoftCommonTargets breaks MSIX build tools (Status: Open)
 - [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826) - APPX1101 errors after upgrading to WindowsAppSDK 1.8 (Status: Open)
 - [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102) - Missing symbols package when building in dotnet msbuild workflow (Status: Open)
+- [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065) - Publish error: Metadata file 'Test.WinUI.dll' not found (Status: Open)
 
 ---
 
@@ -98,7 +101,25 @@ warning: Path to `mspdbcmf.exe` could not be found. A symbols package will not b
 
 ---
 
-### Scenario 3: DebugType=embedded Generates Misleading mspdbcmf.exe Error
+### Scenario 3: Publish Error — Metadata File 'Test.WinUI.dll' Not Found
+
+**Cause:** Publishing fails when the reference library project contains the `Microsoft.WindowsAppSDK` package. This occurs due to incorrect project configuration or MSIX packaging being enabled for an unpackaged app.
+> Source: @Scottj1s in [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065)
+
+**Fix:**
+1. Disable MSIX packaging for unpackaged apps by adding the following to the `.csproj` file:
+   ```xml
+   <PropertyGroup>
+     <WindowsPackageType>None</WindowsPackageType>
+   </PropertyGroup>
+   ```
+2. Ensure the correct "Publish" menu option is selected in Visual Studio. For unpackaged apps, use the "Publish" menu item, not "Package and Publish."
+
+**Verify:** Publish completes without errors, and the application runs successfully.
+
+---
+
+### Scenario 4: DebugType=embedded Generates Misleading mspdbcmf.exe Error
 
 **Cause:** When `DebugType=embedded` is set in the project file, the MSIX build tools incorrectly emit a warning about `mspdbcmf.exe` not being found, even though it is not required in this configuration.
 > Source: @Scottj1s in [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262)
@@ -127,7 +148,7 @@ Add a dummy `PDBPayload` to suppress the warning:
 
 ---
 
-### Scenario 4: APPXUPLOAD-Bundle Creation Unsupported Pre-1.8
+### Scenario 5: APPXUPLOAD-Bundle Creation Unsupported Pre-1.8
 
 **Cause:** The single-project MSIX tooling did not support `.appxupload` or `.msixupload` bundle creation prior to Windows App SDK 1.8.
 > Source: @DarranRowe in [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675)
@@ -138,7 +159,7 @@ Add a dummy `PDBPayload` to suppress the warning:
 
 ---
 
-### Scenario 5: APPX1101 Errors Due to Duplicate Files in Payload
+### Scenario 6: APPX1101 Errors Due to Duplicate Files in Payload
 
 **Cause:** Duplicate files in the MSIX package payload, often caused by conflicting versions of dependencies or incorrect project configurations.
 > Source: @manodasanW in [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826)
@@ -149,7 +170,7 @@ Add a dummy `PDBPayload` to suppress the warning:
 
 ---
 
-### Scenario 6: CustomBeforeMicrosoftCommonTargets Reassignment Breaks MSIX Build Tools
+### Scenario 7: CustomBeforeMicrosoftCommonTargets Reassignment Breaks MSIX Build Tools
 
 **Cause:** The `CustomBeforeMicrosoftCommonTargets` MSBuild property is reassigned without preserving the original value, causing the MSIX build tools to fail.
 > Source: @Scottj1s in [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811)
@@ -193,5 +214,5 @@ Add a dummy `PDBPayload` to suppress the warning:
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.8
-**Sources:** [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197), [#3718](https://github.com/microsoft/WindowsAppSDK/issues/3718), [#5598](https://github.com/microsoft/WindowsAppSDK/issues/5598), [#5586](https://github.com/microsoft/WindowsAppSDK/issues/5586), [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262), [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675), [#5626](https://github.com/microsoft/WindowsAppSDK/issues/5626), [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811), [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826), [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102)
+**Updated:** 2026-03-30 | **Confidence:** 0.8
+**Sources:** [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197), [#3718](https://github.com/microsoft/WindowsAppSDK/issues/3718), [#5598](https://github.com/microsoft/WindowsAppSDK/issues/5598), [#5586](https://github.com/microsoft/WindowsAppSDK/issues/5586), [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262), [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675), [#5626](https://github.com/microsoft/WindowsAppSDK/issues/5626), [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811), [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826), [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102), [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065)
