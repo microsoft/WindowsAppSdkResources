@@ -222,5 +222,5 @@ Add the Native AOT PDB to the `.appxsym` file manually by modifying the MSBuild 
 
 ---
 
-**Updated:** 2026-03-30 | **Confidence:** 0.85
+**Updated:** 2026-04-06 | **Confidence:** 0.85
 **Sources:** [#5820](https://github.com/microsoft/WindowsAppSDK/issues/5820), [#5825](https://github.com/microsoft/WindowsAppSDK/issues/5825), [#5501](https://github.com/microsoft/WindowsAppSDK/issues/5501), [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537), [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845), [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197), [#6208](https://github.com/microsoft/WindowsAppSDK/issues/6208)
