@@ -86,5 +86,5 @@ Something I don't quite understand, is that my app is packaged and therefore sho
 
 ---
 
-**Updated:** 2026-04-20 | **Confidence:** 0.8
+**Updated:** 2026-04-27 | **Confidence:** 0.8
 **Sources:** [#6410](https://github.com/microsoft/WindowsAppSDK/issues/6410), [CascadiaPackage example](https://github.com/microsoft/terminal/blob/7a83c0f1679ccac4c3f24f031bf403bd000ab320/src/cascadia/CascadiaPackage/Package.appxmanifest#L33-L37)
