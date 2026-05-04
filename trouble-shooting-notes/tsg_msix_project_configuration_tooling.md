@@ -1,6 +1,6 @@
 # Error: MSIX Project Configuration & Build Tools Issues
 
-**Keywords:** EnableMsixTooling, Microsoft.Windows.SDK.BuildTools.MSIX, AppxOSMinVersionReplaceManifestVersion, AppxOSMaxVersionTestedReplaceManifestVersion, mspdbcmf.exe, wapproj, single-project MSIX, NuGet, Visual Studio, unpackaged, resources.pri, DebugType, APPX1101, APPXUPLOAD, buildTransitive, CustomBeforeMicrosoftCommonTargets, dotnet msbuild, symbols package, PublishError, MetadataNotFound
+**Keywords:** EnableMsixTooling, Microsoft.Windows.SDK.BuildTools.MSIX, AppxOSMinVersionReplaceManifestVersion, AppxOSMaxVersionTestedReplaceManifestVersion, mspdbcmf.exe, wapproj, single-project MSIX, NuGet, Visual Studio, unpackaged, resources.pri, DebugType, APPX1101, APPXUPLOAD, buildTransitive, CustomBeforeMicrosoftCommonTargets, dotnet msbuild, symbols package, PublishError, MetadataNotFound, UapAppxPackageBuildMode, RuntimeIdentifier, AppxBundlePlatforms
 
 **Error Examples:**
 ```
@@ -12,6 +12,8 @@ error: Missing APPXUPLOAD file for store submission
 error: CustomBeforeMicrosoftCommonTargets reassignment breaks MSIX build tools
 warning: Path to `mspdbcmf.exe` could not be found. A symbols package will not be generated
 error: Metadata file 'Test.WinUI.dll' could not be found during Publish
+error: APPX1101 - Payload contains duplicate 'resources.pri' files in WinUI integration tests
+error: NETSDK1032 - RuntimeIdentifier conflicts during MSIX bundle recursive builds
 ```
 
 ---
@@ -28,6 +30,9 @@ error: Metadata file 'Test.WinUI.dll' could not be found during Publish
 - MSIX build tools fail due to `CustomBeforeMicrosoftCommonTargets` reassignment
 - Building MSIX packages using `dotnet msbuild` or `dotnet publish` fails to generate symbols package due to missing `mspdbcmf.exe`
 - Publishing unpackaged apps fails with "Metadata file 'Test.WinUI.dll' could not be found"
+- Publishing an MSIX package influences future builds due to `.csproj.user` pollution
+- Encountering APPX1101 errors with duplicate `resources.pri` files in WinUI integration tests
+- MSIX bundle recursive builds fail due to `RuntimeIdentifier` conflicts
 
 → Check scenarios below for your specific cause
 
@@ -46,6 +51,9 @@ error: Metadata file 'Test.WinUI.dll' could not be found during Publish
 - [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826) - APPX1101 errors after upgrading to WindowsAppSDK 1.8 (Status: Open)
 - [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102) - Missing symbols package when building in dotnet msbuild workflow (Status: Open)
 - [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065) - Publish error: Metadata file 'Test.WinUI.dll' not found (Status: Open)
+- [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537) - Publishing MSIX package influences future builds (Status: Open)
+- [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845) - APPX1101 error with duplicate resources.pri in WinUI integration tests (Status: Closed)
+- [#6322](https://github.com/microsoft/WindowsAppSDK/issues/6322) - MSIX bundle recursive build does not propagate RuntimeIdentifier (Status: Closed)
 
 ---
 
@@ -119,47 +127,25 @@ error: Metadata file 'Test.WinUI.dll' could not be found during Publish
 
 ---
 
-### Scenario 4: DebugType=embedded Generates Misleading mspdbcmf.exe Error
+### Scenario 4: Publishing MSIX Package Influences Future Builds
 
-**Cause:** When `DebugType=embedded` is set in the project file, the MSIX build tools incorrectly emit a warning about `mspdbcmf.exe` not being found, even though it is not required in this configuration.
-> Source: @Scottj1s in [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262)
+**Cause:** Publishing an MSIX package from Visual Studio adds the `UapAppxPackageBuildMode` property to the `.csproj.user` file, causing MSIX packages to be created for every subsequent build in Release mode. This also prevents publishing unpackaged apps.
+> Source: @Scottj1s in [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537)
 
-**Fix:** Update to `Microsoft.Windows.SDK.BuildTools.MSIX` version `1.5.20250417.1` or later, where this issue has been resolved.
+**Workaround:**
+1. Delete the `.csproj.user` file or remove the `<UapAppxPackageBuildMode>` property after publishing.
+2. Alternatively, set the property to `SideloadOnly` to prevent automatic package creation:
+   ```xml
+   <PropertyGroup>
+     <UapAppxPackageBuildMode>SideloadOnly</UapAppxPackageBuildMode>
+   </PropertyGroup>
+   ```
 
-**Workaround (if unable to update):**
-Add a dummy `PDBPayload` to suppress the warning:
-```xml
-<PropertyGroup>
-    <DummyPDBPayload>DummyPDBPayload</DummyPDBPayload>
-</PropertyGroup>
-<Target Name="Before_EnsurePdbCmfExeFullPath" BeforeTargets="_EnsurePdbCmfExeFullPath" Condition="'@(PDBPayload)' == ''">
-    <ItemGroup>
-        <PDBPayload Include="$(DummyPDBPayload)" />
-    </ItemGroup>
-</Target>
-<Target Name="After_EnsurePdbCmfExeFullPath" AfterTargets="_EnsurePdbCmfExeFullPath" Condition="'@(PDBPayload)' == '$(DummyPDBPayload)'">
-    <ItemGroup>
-        <PDBPayload Remove="$(DummyPDBPayload)" />
-    </ItemGroup>
-</Target>
-```
-
-**Verify:** Build completes without warnings about `mspdbcmf.exe`.
+**Verify:** Subsequent builds do not create MSIX packages unless explicitly requested.
 
 ---
 
-### Scenario 5: APPXUPLOAD-Bundle Creation Unsupported Pre-1.8
-
-**Cause:** The single-project MSIX tooling did not support `.appxupload` or `.msixupload` bundle creation prior to Windows App SDK 1.8.
-> Source: @DarranRowe in [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675)
-
-**Workaround:** Manually create the `.appxupload` file by zipping the `.msix` or `.msixbundle` file and its associated `.msixsym` file, then renaming the `.zip` file to `.appxupload`.
-
-**Verify:** The manually created `.appxupload` file is accepted by the Microsoft Store.
-
----
-
-### Scenario 6: APPX1101 Errors Due to Duplicate Files in Payload
+### Scenario 5: APPX1101 Errors Due to Duplicate Files in Payload
 
 **Cause:** Duplicate files in the MSIX package payload, often caused by conflicting versions of dependencies or incorrect project configurations.
 > Source: @manodasanW in [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826)
@@ -170,19 +156,25 @@ Add a dummy `PDBPayload` to suppress the warning:
 
 ---
 
-### Scenario 7: CustomBeforeMicrosoftCommonTargets Reassignment Breaks MSIX Build Tools
+### Scenario 6: APPX1101 Error with Duplicate 'resources.pri' Files in WinUI Integration Tests
 
-**Cause:** The `CustomBeforeMicrosoftCommonTargets` MSBuild property is reassigned without preserving the original value, causing the MSIX build tools to fail.
-> Source: @Scottj1s in [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811)
+**Cause:** When a WinUI integration test references a WinUI app, upgrading to .NET 9 can cause duplicate `resources.pri` files in the MSIX package payload.
+> Source: @manodasanW in [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845)
 
-**Workaround:** Ensure that any reassignment of `CustomBeforeMicrosoftCommonTargets` includes the original value. For example:
-```xml
-<PropertyGroup>
-    <CustomBeforeMicrosoftCommonTargets>$(CustomBeforeMicrosoftCommonTargets);YourCustomPropsFile.props</CustomBeforeMicrosoftCommonTargets>
-</PropertyGroup>
-```
+**Fix:** Update to `Microsoft.Windows.SDK.BuildTools.MSIX` version `1.7.251221100` or later, which resolves this issue.
 
-**Verify:** Build completes without errors related to `CustomBeforeMicrosoftCommonTargets`.
+**Verify:** Build completes without APPX1101 errors related to `resources.pri`.
+
+---
+
+### Scenario 7: MSIX Bundle Recursive Build Fails Due to RuntimeIdentifier Conflicts
+
+**Cause:** When creating an MSIX bundle with `GenerateAppxPackageOnBuild=true` and `AppxBundle=Always`, the recursive build process does not propagate the correct `RuntimeIdentifier` when switching platforms, causing `NETSDK1032` errors.
+> Source: @guimafelipe in [#6322](https://github.com/microsoft/WindowsAppSDK/issues/6322)
+
+**Fix:** Update to `Microsoft.Windows.SDK.BuildTools.MSIX` version `1.7.260425100` or later.
+
+**Verify:** MSIX bundle builds successfully without `NETSDK1032` errors.
 
 ---
 
@@ -214,5 +206,5 @@ Add a dummy `PDBPayload` to suppress the warning:
 
 ---
 
-**Updated:** 2026-03-30 | **Confidence:** 0.8
-**Sources:** [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197), [#3718](https://github.com/microsoft/WindowsAppSDK/issues/3718), [#5598](https://github.com/microsoft/WindowsAppSDK/issues/5598), [#5586](https://github.com/microsoft/WindowsAppSDK/issues/5586), [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262), [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675), [#5626](https://github.com/microsoft/WindowsAppSDK/issues/5626), [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811), [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826), [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102), [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065)
+**Updated:** 2026-05-04 | **Confidence:** 0.8
+**Sources:** [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197), [#3718](https://github.com/microsoft/WindowsAppSDK/issues/3718), [#5598](https://github.com/microsoft/WindowsAppSDK/issues/5598), [#5586](https://github.com/microsoft/WindowsAppSDK/issues/5586), [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262), [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675), [#5626](https://github.com/microsoft/WindowsAppSDK/issues/5626), [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811), [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826), [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102), [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065), [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537), [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845), [#6322](https://github.com/microsoft/WindowsAppSDK/issues/6322)
