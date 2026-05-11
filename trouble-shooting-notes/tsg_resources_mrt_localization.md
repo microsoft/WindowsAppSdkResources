@@ -186,6 +186,11 @@ Manually rename `<executable_name>.pri` to `resources.pri` after every build:
   > Source: @JulienTheron in [#5817](https://github.com/microsoft/WindowsAppSDK/issues/5817)
 - Manually create the bundle using `MakeAppx` to ensure all languages are included.
   > Source: @JulienTheron in [#5817](https://github.com/microsoft/WindowsAppSDK/issues/5817)
+- Disable the filter for unused language resource file maps in the `.csproj` file:
+  ```xml
+  <AppxFilterOutUnusedLanguagesResourceFileMaps>false</AppxFilterOutUnusedLanguagesResourceFileMaps>
+  ```
+  > Source: @guimafelipe [MSFT] in [#5817](https://github.com/microsoft/WindowsAppSDK/issues/5817)
 
 ---
 
@@ -206,5 +211,5 @@ Manually rename `<executable_name>.pri` to `resources.pri` after every build:
 
 ---
 
-**Updated:** 2026-04-06 | **Confidence:** 0.8
+**Updated:** 2026-05-11 | **Confidence:** 0.8
 **Sources:** #6247, #1687, #3705, #5814, #5832, #5987, #5817

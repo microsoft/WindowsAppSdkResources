@@ -147,5 +147,5 @@ FindOrRegisterForKey("main") throws ArgumentException or COMException
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.8
+**Updated:** 2026-05-11 | **Confidence:** 0.8
 **Sources:** #5389, #6219, #5323, #6291, #5633, #5257, #5071, #5694

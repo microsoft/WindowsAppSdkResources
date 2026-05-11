@@ -155,13 +155,53 @@ What’s the correct way to host WinUI 3 content (XAML) using XAML Islands with 
 
 ---
 
-## References
+# Error: "dotnet new templates show no icon in Visual Studio New Project dialog" - Template Icon Issue
 
-- [Windows App SDK Samples - XAML Islands](https://github.com/microsoft/WindowsAppSDK-Samples/tree/main/Samples/Islands)
-- [DesktopChildSiteBridge Class Documentation](https://learn.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/microsoft.ui.content.desktopchildsitebridge?view=windows-app-sdk-1.7)
-- [XamlIsland Class Documentation](https://learn.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.xamlisland?view=windows-app-sdk-1.7)
+**Keywords:** dotnet new, Visual Studio, template icon, WinUI templates, Windows App SDK
+
+**Error Example:**
+```
+The new project templates installed via dotnet new for WinUI appear without an icon in Visual Studio's Create a new project dialog.
+```
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.9
-**Sources:** [#5534](https://github.com/microsoft/WindowsAppSDK/issues/5534), [#5350](https://github.com/microsoft/WindowsAppSDK/issues/5350), [#5625](https://github.com/microsoft/WindowsAppSDK/issues/5625)
+## Quick Match
+
+**You're seeing this if:**
+- You installed or updated WinUI templates via `dotnet new`.
+- You notice that the templates appear without an icon in Visual Studio's "Create a new project" dialog.
+
+→ Check scenarios below for your specific cause.
+
+---
+
+## Related Issues
+
+- [#6339](https://github.com/microsoft/WindowsAppSDK/issues/6339) - dotnet new templates show no icon in Visual Studio New Project dialog (Status: Closed, Fixed in PR)
+
+---
+
+## Scenarios & Solutions
+
+### Scenario 1: Missing template icons in Visual Studio
+
+**Cause:** The WinUI templates installed via `dotnet new` were missing the necessary metadata to display icons in Visual Studio's "Create a new project" dialog.
+> Source: @botMorten in [#6339](https://github.com/microsoft/WindowsAppSDK/issues/6339)
+
+**Fix:**
+1. Update the WinUI templates to the latest version using the following command:
+   ```
+   dotnet new --install Microsoft.ProjectReunion.Templates
+   ```
+2. Restart Visual Studio to ensure the updated templates are loaded correctly.
+3. Verify that the icons now appear in the "Create a new project" dialog.
+
+> ✅ Confirmed by: @botMorten in issue comments.
+
+**Verify:** Open Visual Studio, navigate to "Create a new project," and confirm that the icons for WinUI templates are displayed correctly.
+
+---
+
+**Updated:** 2026-05-11 | **Confidence:** 0.9
+**Sources:** [#5534](https://github.com/microsoft/WindowsAppSDK/issues/5534), [#5350](https://github.com/microsoft/WindowsAppSDK/issues/5350), [#5625](https://github.com/microsoft/WindowsAppSDK/issues/5625), [#6339](https://github.com/microsoft/WindowsAppSDK/issues/6339)
