@@ -206,5 +206,5 @@ error: NETSDK1032 - RuntimeIdentifier conflicts during MSIX bundle recursive bui
 
 ---
 
-**Updated:** 2026-05-04 | **Confidence:** 0.8
+**Updated:** 2026-05-18 | **Confidence:** 0.8
 **Sources:** [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197), [#3718](https://github.com/microsoft/WindowsAppSDK/issues/3718), [#5598](https://github.com/microsoft/WindowsAppSDK/issues/5598), [#5586](https://github.com/microsoft/WindowsAppSDK/issues/5586), [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262), [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675), [#5626](https://github.com/microsoft/WindowsAppSDK/issues/5626), [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811), [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826), [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102), [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065), [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537), [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845), [#6322](https://github.com/microsoft/WindowsAppSDK/issues/6322)

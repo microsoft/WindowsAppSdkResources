@@ -1,6 +1,6 @@
 # Background Task Crashes, Print Preview Dark Theme & VS Tooling - Windows App SDK
 
-**Keywords:** UniversalBGTask, STOWED_EXCEPTION, background task, crash, 0x80004005, 0x80004002, 0x800706ba, 0x80080204, 0xC00CE169, ACCESS_VIOLATION, PrintPreview, dark theme, RequestedTheme, empty preview, Visual Studio 2022, add page, new item
+**Keywords:** UniversalBGTask, STOWED_EXCEPTION, background task, crash, 0x80004005, 0x80004002, 0x800706ba, 0x80080204, 0xC00CE169, ACCESS_VIOLATION, PrintPreview, dark theme, RequestedTheme, empty preview, Visual Studio 2022, add page, new item, CoCreateInstance, COM activation failure
 
 **Error Example:**
 ```
@@ -31,7 +31,7 @@ No option to add a new Page in VS 2022 Preview 3 with WinAppSDK 0.8
 
 ## Related Issues
 
-- [#5870](https://github.com/microsoft/WindowsAppSDK/issues/5870) - UniversalBGTask crashes with STOWED_EXCEPTION (Status: Open, area-BackgroundTask, 36 comments)
+- [#5870](https://github.com/microsoft/WindowsAppSDK/issues/5870) - UniversalBGTask crashes with STOWED_EXCEPTION (Status: Open, area-BackgroundTask, 37 comments)
 - [#6086](https://github.com/microsoft/WindowsAppSDK/issues/6086) - PrintPreview displays empty value when RequestedTheme is dark (Status: Open)
 - [#1236](https://github.com/microsoft/WindowsAppSDK/issues/1236) - Unable to Create new Pages in VS 2022 Preview 3 (Status: Closed)
 
@@ -65,6 +65,10 @@ twinapi.appcore.dll!BackgroundTaskWrapper::ThreadProc
 - Affects all apps published in the Microsoft Store that use background tasks
 - Issue persisted across WinAppSDK 1.7 (ACCESS_VIOLATION) and 1.8 (STOWED_EXCEPTION)
 
+**Additional Notes:** 
+- Some crash dumps indicate `CoCreateInstance` failures due to missing or inaccessible COM class registrations in the app package.
+> Source: @godlytalias [MSFT] in [#5870](https://github.com/microsoft/WindowsAppSDK/issues/5870)
+
 **Workaround (limited):**
 1. Wrap your background task `Run` implementation in a comprehensive try-catch to prevent unhandled exceptions:
 ```csharp
@@ -89,9 +93,8 @@ public sealed class MyBackgroundTask : IBackgroundTask
     }
 }
 ```
-2. Note: The `E_NOINTERFACE` (0x80004002) crash occurs inside `UniversalBGTask.dll` itself (not user code), suggesting a platform-level COM activation failure that cannot be caught by user exception handlers
-3. The `RPC_S_SERVER_UNAVAILABLE` (0x800706ba) error suggests the background task host process may lose connection to the main application or a required system service
-4. Monitor [#5870](https://github.com/microsoft/WindowsAppSDK/issues/5870) for updates — this is actively discussed with 36 comments
+2. Ensure all required COM classes are properly registered in the app package and visible to the background task host process.
+3. Monitor [#5870](https://github.com/microsoft/WindowsAppSDK/issues/5870) for updates — this is actively discussed with 37 comments.
 
 **Status:** Open — no confirmed fix. This is a high-impact issue affecting Store-published apps.
 
@@ -155,7 +158,7 @@ private void OnPaginate(object sender, PaginateEventArgs e)
     _printDoc.SetPreviewPage(1, page);
 }
 ```
-2. Alternatively, set `RequestedTheme = ElementTheme.Light` on the root element of each print preview page to ensure print content is always rendered with light theme colors regardless of the app theme
+2. Alternatively, set `RequestedTheme = ElementTheme.Light` on the root element of each print preview page to ensure print content is always rendered with light theme colors regardless of the app theme.
 
 **Verify:** Open print preview with dark theme active — text should now be visible on the white preview background.
 
@@ -169,7 +172,7 @@ private void OnPaginate(object sender, PaginateEventArgs e)
 > Source: Issue author in [#1236](https://github.com/microsoft/WindowsAppSDK/issues/1236)
 
 **Workaround (historical):**
-1. Use Visual Studio 2019 to add the new page, then continue working in VS 2022
+1. Use Visual Studio 2019 to add the new page, then continue working in VS 2022.
 2. Manually create the `.xaml` and `.xaml.cs` files following the WinUI page pattern:
 
 ```xml
@@ -198,11 +201,11 @@ namespace YourApp
 ```
 
 **Fix:**
-1. **Update Visual Studio 2022** to a recent stable release — this issue was specific to early Preview 3 builds with WinAppSDK 0.8
-2. Ensure the **Windows App SDK** extension/workload is installed in VS 2022
-3. Modern versions of VS 2022 with WinAppSDK 1.x+ include proper WinUI item templates
+1. **Update Visual Studio 2022** to a recent stable release — this issue was specific to early Preview 3 builds with WinAppSDK 0.8.
+2. Ensure the **Windows App SDK** extension/workload is installed in VS 2022.
+3. Modern versions of VS 2022 with WinAppSDK 1.x+ include proper WinUI item templates.
 
-> ✅ Confirmed resolved: Issue is closed, indicating this was fixed in subsequent VS 2022 updates
+> ✅ Confirmed resolved: Issue is closed, indicating this was fixed in subsequent VS 2022 updates.
 
 **Environment:**
 - Visual Studio 2022 Preview 3 (historical)
@@ -228,5 +231,5 @@ namespace YourApp
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.6
+**Updated:** 2026-05-18 | **Confidence:** 0.6
 **Sources:** #5870, #6086, #1236, Microsoft Learn documentation

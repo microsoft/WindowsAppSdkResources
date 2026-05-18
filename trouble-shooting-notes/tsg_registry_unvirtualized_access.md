@@ -1,6 +1,6 @@
 # Error: "Cannot write to unvirtualized HKLM registry key in packaged app"
 
-**Keywords:** HKLM, unvirtualized registry, packaged app, MSIX, unvirtualizedResources, StorageProviderSyncRootManager.Register
+**Keywords:** HKLM, unvirtualized registry, packaged app, MSIX, unvirtualizedResources, StorageProviderSyncRootManager.Register, RegNotifyChangeKeyValue, registry virtualization, light/dark theme listener
 
 **Error Example:**
 ```
@@ -16,9 +16,9 @@ Something I don't quite understand, is that my app is packaged and therefore sho
 ## Quick Match
 
 **You're seeing this if:**
-- Your app is packaged (MSIX) and needs to write to HKLM registry keys.
+- Your app is packaged (MSIX) and needs to write to or monitor registry keys (e.g., HKLM or HKCU).
 - You encounter issues with registry virtualization or visibility of registry changes to other processes.
-- You are using APIs like `StorageProviderSyncRootManager.Register()`.
+- You are using APIs like `StorageProviderSyncRootManager.Register()` or `RegNotifyChangeKeyValue`.
 
 → Check scenarios below for your specific cause.
 
@@ -27,6 +27,7 @@ Something I don't quite understand, is that my app is packaged and therefore sho
 ## Related Issues
 
 - [#6410](https://github.com/microsoft/WindowsAppSDK/issues/6410) - I MUST write to an unvirtualized HKLM key in my packaged app (Status: Open)
+- [#4075](https://github.com/microsoft/WindowsAppSDK/issues/4075) - RegNotifyChangeKeyValue is not working in WinUI3 app (Status: Open)
 
 ---
 
@@ -71,6 +72,32 @@ Something I don't quite understand, is that my app is packaged and therefore sho
 
 ---
 
+### Scenario 3: RegNotifyChangeKeyValue not working in a packaged WinUI3 app
+
+**Cause:** Packaged apps (MSIX) are subject to registry virtualization, which can interfere with monitoring changes to unvirtualized registry keys using `RegNotifyChangeKeyValue`. This issue is particularly relevant for apps targeting older versions of Windows 10 (e.g., 17763), which do not support the `unvirtualizedResources` capability.
+
+> Source: @ChrisGuzak [MSFT] and @DarranRowe in [#4075](https://github.com/microsoft/WindowsAppSDK/issues/4075)
+
+**Fix:**
+1. Test if the issue is related to packaging:
+   - Temporarily remove packaging by adding `<WindowsPackageType>None</WindowsPackageType>` to your `.vcxproj` file.
+   - Run the app and verify if `RegNotifyChangeKeyValue` works as expected.
+2. If the issue is confirmed to be related to packaging, consider the following options:
+   - Use the `unvirtualizedResources` capability in your app's manifest to disable registry virtualization for the specific key you want to monitor. Note that this requires Windows 10 version 18362 or later.
+     ```xml
+     <rescap:Capability Name="unvirtualizedResources" />
+     <rescap:RegistryKeys>
+         <rescap:RegistryKey KeyName="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" />
+     </rescap:RegistryKeys>
+     ```
+   - If targeting Windows 10 version 17763 or earlier, this capability is not supported. As a workaround, consider using an alternative method to detect theme changes, such as handling the `WM_SETTINGSCHANGE` message and looking for the "ImmersiveColorSet" string.
+
+> Source: @DarranRowe in [#4075](https://github.com/microsoft/WindowsAppSDK/issues/4075)
+
+**Verify:** Test the app on the target Windows version to ensure that `RegNotifyChangeKeyValue` works as expected after applying the fix.
+
+---
+
 ## ⚠️ Unverified / Community Suggestions
 
 > The following are community suggestions that have NOT been officially confirmed.
@@ -82,9 +109,11 @@ Something I don't quite understand, is that my app is packaged and therefore sho
 ## References
 
 - [Issue #6410](https://github.com/microsoft/WindowsAppSDK/issues/6410)
+- [Issue #4075](https://github.com/microsoft/WindowsAppSDK/issues/4075)
 - [Example of unvirtualized registry keys in CascadiaPackage](https://github.com/microsoft/terminal/blob/7a83c0f1679ccac4c3f24f031bf403bd000ab320/src/cascadia/CascadiaPackage/Package.appxmanifest#L33-L37)
+- [Flexible Virtualization Documentation](https://learn.microsoft.com/en-us/windows/msix/desktop/flexible-virtualization)
 
 ---
 
-**Updated:** 2026-04-27 | **Confidence:** 0.8
-**Sources:** [#6410](https://github.com/microsoft/WindowsAppSDK/issues/6410), [CascadiaPackage example](https://github.com/microsoft/terminal/blob/7a83c0f1679ccac4c3f24f031bf403bd000ab320/src/cascadia/CascadiaPackage/Package.appxmanifest#L33-L37)
+**Updated:** 2026-05-18 | **Confidence:** 0.8
+**Sources:** [#6410](https://github.com/microsoft/WindowsAppSDK/issues/6410), [#4075](https://github.com/microsoft/WindowsAppSDK/issues/4075), [CascadiaPackage example](https://github.com/microsoft/terminal/blob/7a83c0f1679ccac4c3f24f031bf403bd000ab320/src/cascadia/CascadiaPackage/Package.appxmanifest#L33-L37)

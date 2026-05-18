@@ -39,7 +39,7 @@ System.IO.FileNotFoundException: Unable to find the specified file.
 - [#5814](https://github.com/microsoft/WindowsAppSDK/issues/5814) — MrmGetFilePathFromName now reports error when `resources.pri` is missing (Status: Closed)
 - [#5832](https://github.com/microsoft/WindowsAppSDK/issues/5832) — Upgrading to v1.8 breaks ResourceLoader in unpackaged apps (Status: Open)
 - [#5987](https://github.com/microsoft/WindowsAppSDK/issues/5987) — MRTCore using MICROSOFT_WINDOWSAPPRUNTIME_BASE_DIRECTORY breaks launching one WinAppSDK app from another (Status: Open)
-- [#5817](https://github.com/microsoft/WindowsAppSDK/issues/5817) — Localization fails after packaging into MSIX bundles in WASDK 1.8 (Status: Open)
+- [#5817](https://github.com/microsoft/WindowsAppSDK/issues/5817) — Localization fails after packaging into MSIX bundles in WASDK 1.8 (Status: Closed/Fixed in 1.7.260513100)
 
 ---
 
@@ -179,7 +179,7 @@ Manually rename `<executable_name>.pri` to `resources.pri` after every build:
 **Cause:** When packaging applications into MSIX bundles using WASDK 1.8, only one language is included in the bundle, and the `ManifestLanguages` list is reduced to a single language. This causes localization to fail after installation.
 > Source: @BigHeadDev, @JulienTheron, @torum in [#5817](https://github.com/microsoft/WindowsAppSDK/issues/5817)
 
-**Status:** Open
+**Status:** Closed/Fixed in 1.7.260513100
 
 **Workaround:**
 - Set `AppxBundle` to `Never` in your project settings to avoid creating a bundle.
@@ -211,5 +211,5 @@ Manually rename `<executable_name>.pri` to `resources.pri` after every build:
 
 ---
 
-**Updated:** 2026-05-11 | **Confidence:** 0.8
+**Updated:** 2026-05-18 | **Confidence:** 0.8
 **Sources:** #6247, #1687, #3705, #5814, #5832, #5987, #5817

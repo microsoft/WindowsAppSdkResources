@@ -160,7 +160,10 @@ error MSB6006: "mspdbcmf.exe" exited with code 1. Visual Studio is required for 
 
 > Source: @zhuxb711 in [#6208](https://github.com/microsoft/WindowsAppSDK/issues/6208)
 
-**Verify:** Check that the `.appxsym` file includes the Native AOT PDB.
+**Update:** @guimafelipe (Microsoft) confirmed that a fix for this issue has been merged internally for the `Microsoft.Windows.SDK.BuildTools.MSIX` NuGet package and will be available in the next release. However, the issue will persist for WAP projects until further updates are made.
+> Source: @guimafelipe in [#6208](https://github.com/microsoft/WindowsAppSDK/issues/6208)
+
+**Verify:** Update to the latest version of `Microsoft.Windows.SDK.BuildTools.MSIX` once released and confirm that the `.appxsym` file includes the Native AOT PDB.
 
 ---
 
@@ -196,4 +199,4 @@ error MSB6006: "mspdbcmf.exe" exited with code 1. Visual Studio is required for 
 
 ---
 
-**Updated:** 2026-05-11
+**Updated:** 2026-05-18
