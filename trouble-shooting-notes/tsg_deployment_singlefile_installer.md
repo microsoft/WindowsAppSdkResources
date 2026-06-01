@@ -129,6 +129,15 @@ C:\Program Files\WindowsApps\Microsoft.WindowsAppRuntime.1.6_6000.318.2304.0_arm
 
 ---
 
+### Issue 3: Renaming Published Executable Breaks Single-File Deployment
+
+**Cause:** Renaming the `.exe` file after publishing a single-file unpackaged app causes XAML resource loading to fail due to URI-based resource paths tied to the original executable name.
+> Source: @aepot, @Wufus, @Zjyslav in [#6248](https://github.com/microsoft/WindowsAppSDK/issues/6248)
+
+**Workaround:** Keep the original executable name after publishing. Alternatively, change the `AssemblyName` in your `.csproj` before publishing.
+
+---
+
 ## ⚠️ Unverified / Community Suggestions
 
 > The following are community suggestions that have NOT been officially confirmed.
@@ -182,5 +191,5 @@ Get-AppxPackage *WindowsAppRuntime* -AllUsers | Select-Object Name, Version, Arc
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.7
+**Updated:** 2026-06-01 | **Confidence:** 0.7
 **Sources:** #6248, #6220, #4977, #5031, #6058
