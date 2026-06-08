@@ -107,5 +107,5 @@ Microsoft.Windows.AI.MachineLearning.dll 870kb
 
 ---
 
-**Updated:** 2026-06-01 | **Confidence:** 0.9
+**Updated:** 2026-06-08 | **Confidence:** 0.9
 **Sources:** [#6464](https://github.com/microsoft/WindowsAppSDK/issues/6464)

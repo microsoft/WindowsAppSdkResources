@@ -1,6 +1,6 @@
 # Error: "Cannot write to unvirtualized HKLM registry key in packaged app"
 
-**Keywords:** HKLM, unvirtualized registry, packaged app, MSIX, unvirtualizedResources, StorageProviderSyncRootManager.Register, RegNotifyChangeKeyValue, registry virtualization, light/dark theme listener
+**Keywords:** HKLM, unvirtualized registry, packaged app, MSIX, unvirtualizedResources, StorageProviderSyncRootManager.Register, RegNotifyChangeKeyValue, registry virtualization, light/dark theme listener, ARM64, Copilot+ PCs
 
 **Error Example:**
 ```
@@ -19,6 +19,7 @@ Something I don't quite understand, is that my app is packaged and therefore sho
 - Your app is packaged (MSIX) and needs to write to or monitor registry keys (e.g., HKLM or HKCU).
 - You encounter issues with registry virtualization or visibility of registry changes to other processes.
 - You are using APIs like `StorageProviderSyncRootManager.Register()` or `RegNotifyChangeKeyValue`.
+- You are targeting ARM64 or Copilot+ PCs and encountering issues with registry access.
 
 → Check scenarios below for your specific cause.
 
@@ -102,7 +103,10 @@ Something I don't quite understand, is that my app is packaged and therefore sho
 
 > The following are community suggestions that have NOT been officially confirmed.
 
-- None provided in the issue comments.
+- **Behavior of HKLM writes with `registry.dat`**: 
+  - Writes to `HKLM\Software` may succeed if the key is not part of the app's `registry.dat` hive and the user has sufficient privileges.
+  - Keys in `registry.dat` are read-only because they are part of the app package content.
+  > Source: @CarlosNihelton in [#6410](https://github.com/microsoft/WindowsAppSDK/issues/6410)
 
 ---
 
@@ -112,8 +116,9 @@ Something I don't quite understand, is that my app is packaged and therefore sho
 - [Issue #4075](https://github.com/microsoft/WindowsAppSDK/issues/4075)
 - [Example of unvirtualized registry keys in CascadiaPackage](https://github.com/microsoft/terminal/blob/7a83c0f1679ccac4c3f24f031bf403bd000ab320/src/cascadia/CascadiaPackage/Package.appxmanifest#L33-L37)
 - [Flexible Virtualization Documentation](https://learn.microsoft.com/en-us/windows/msix/desktop/flexible-virtualization)
+- [Desktop to UWP: Behind the Scenes](https://learn.microsoft.com/en-us/windows/msix/desktop/desktop-to-uwp-behind-the-scenes#common-registry-operations)
 
 ---
 
-**Updated:** 2026-05-18 | **Confidence:** 0.8
+**Updated:** 2026-06-08 | **Confidence:** 0.8
 **Sources:** [#6410](https://github.com/microsoft/WindowsAppSDK/issues/6410), [#4075](https://github.com/microsoft/WindowsAppSDK/issues/4075), [CascadiaPackage example](https://github.com/microsoft/terminal/blob/7a83c0f1679ccac4c3f24f031bf403bd000ab320/src/cascadia/CascadiaPackage/Package.appxmanifest#L33-L37)
