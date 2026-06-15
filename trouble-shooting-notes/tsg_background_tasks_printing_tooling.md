@@ -31,7 +31,7 @@ No option to add a new Page in VS 2022 Preview 3 with WinAppSDK 0.8
 
 ## Related Issues
 
-- [#5870](https://github.com/microsoft/WindowsAppSDK/issues/5870) - UniversalBGTask crashes with STOWED_EXCEPTION (Status: Open, area-BackgroundTask, 46 comments)
+- [#5870](https://github.com/microsoft/WindowsAppSDK/issues/5870) - UniversalBGTask crashes with STOWED_EXCEPTION (Status: Closed, area-BackgroundTask, 46 comments)
 - [#6086](https://github.com/microsoft/WindowsAppSDK/issues/6086) - PrintPreview displays empty value when RequestedTheme is dark (Status: Open)
 - [#1236](https://github.com/microsoft/WindowsAppSDK/issues/1236) - Unable to Create new Pages in VS 2022 Preview 3 (Status: Closed)
 
@@ -96,7 +96,7 @@ public sealed class MyBackgroundTask : IBackgroundTask
 2. Ensure all required COM classes are properly registered in the app package and visible to the background task host process.
 3. Monitor [#5870](https://github.com/microsoft/WindowsAppSDK/issues/5870) for updates — this is actively discussed with 46 comments.
 
-**Status:** Open — no confirmed fix. This is a high-impact issue affecting Store-published apps.
+**Status:** Closed — no confirmed fix. This issue has been closed as of 2026-06-12, but the underlying problem persists.
 
 **Environment:**
 - WinAppSDK 1.8.1 (1.8.250916003)
@@ -231,5 +231,5 @@ namespace YourApp
 
 ---
 
-**Updated:** 2026-06-01 | **Confidence:** 0.6
+**Updated:** 2026-06-15 | **Confidence:** 0.6
 **Sources:** #5870, #6086, #1236, Microsoft Learn documentation

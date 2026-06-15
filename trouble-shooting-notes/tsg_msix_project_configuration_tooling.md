@@ -1,6 +1,6 @@
 # Error: MSIX Project Configuration & Build Tools Issues
 
-**Keywords:** EnableMsixTooling, Microsoft.Windows.SDK.BuildTools.MSIX, AppxOSMinVersionReplaceManifestVersion, AppxOSMaxVersionTestedReplaceManifestVersion, mspdbcmf.exe, wapproj, single-project MSIX, NuGet, Visual Studio, unpackaged, resources.pri, DebugType, APPX1101, APPXUPLOAD, buildTransitive, CustomBeforeMicrosoftCommonTargets, dotnet msbuild, symbols package, PublishError, MetadataNotFound, UapAppxPackageBuildMode, RuntimeIdentifier, AppxBundlePlatforms
+**Keywords:** EnableMsixTooling, Microsoft.Windows.SDK.BuildTools.MSIX, AppxOSMinVersionReplaceManifestVersion, AppxOSMaxVersionTestedReplaceManifestVersion, mspdbcmf.exe, wapproj, single-project MSIX, NuGet, Visual Studio, unpackaged, resources.pri, DebugType, APPX1101, APPXUPLOAD, buildTransitive, CustomBeforeMicrosoftCommonTargets, dotnet msbuild, symbols package, PublishError, MetadataNotFound, UapAppxPackageBuildMode, RuntimeIdentifier, AppxBundlePlatforms, AppxPackageName, AppxBundleNameForOutput
 
 **Error Examples:**
 ```
@@ -14,6 +14,7 @@ warning: Path to `mspdbcmf.exe` could not be found. A symbols package will not b
 error: Metadata file 'Test.WinUI.dll' could not be found during Publish
 error: APPX1101 - Payload contains duplicate 'resources.pri' files in WinUI integration tests
 error: NETSDK1032 - RuntimeIdentifier conflicts during MSIX bundle recursive builds
+error: Setting AppxPackageName breaks msixbundle generation
 ```
 
 ---
@@ -33,6 +34,7 @@ error: NETSDK1032 - RuntimeIdentifier conflicts during MSIX bundle recursive bui
 - Publishing an MSIX package influences future builds due to `.csproj.user` pollution
 - Encountering APPX1101 errors with duplicate `resources.pri` files in WinUI integration tests
 - MSIX bundle recursive builds fail due to `RuntimeIdentifier` conflicts
+- Setting `AppxPackageName` breaks MSIX bundle generation
 
 → Check scenarios below for your specific cause
 
@@ -54,6 +56,7 @@ error: NETSDK1032 - RuntimeIdentifier conflicts during MSIX bundle recursive bui
 - [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537) - Publishing MSIX package influences future builds (Status: Open)
 - [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845) - APPX1101 error with duplicate resources.pri in WinUI integration tests (Status: Closed)
 - [#6322](https://github.com/microsoft/WindowsAppSDK/issues/6322) - MSIX bundle recursive build does not propagate RuntimeIdentifier (Status: Closed)
+- [#6508](https://github.com/microsoft/WindowsAppSDK/issues/6508) - Setting AppxPackageName breaks msixbundle generation (Status: Closed)
 
 ---
 
@@ -178,6 +181,20 @@ error: NETSDK1032 - RuntimeIdentifier conflicts during MSIX bundle recursive bui
 
 ---
 
+### Scenario 8: Setting AppxPackageName Breaks MSIX Bundle Generation
+
+**Cause:** Setting `AppxPackageName` in the project file causes all MSIX files in the bundle to have the same name, leading to overwriting and incomplete bundles.
+> Source: @guimafelipe in [#6508](https://github.com/microsoft/WindowsAppSDK/issues/6508)
+
+**Fix:** Update to `Microsoft.Windows.SDK.BuildTools.MSIX` version `1.7.260610101` or later.
+
+**Workaround (if update is not possible):**
+1. Use `AppxBundleNameForOutput` instead of `AppxPackageName` to change the bundle name without affecting individual MSIX file names.
+
+**Verify:** MSIX bundle contains all expected packages for multiple platforms.
+
+---
+
 ## Known Issues
 
 ### Issue: Missing Symbols Package When Building in dotnet msbuild Workflow
@@ -206,5 +223,5 @@ error: NETSDK1032 - RuntimeIdentifier conflicts during MSIX bundle recursive bui
 
 ---
 
-**Updated:** 2026-05-18 | **Confidence:** 0.8
-**Sources:** [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197), [#3718](https://github.com/microsoft/WindowsAppSDK/issues/3718), [#5598](https://github.com/microsoft/WindowsAppSDK/issues/5598), [#5586](https://github.com/microsoft/WindowsAppSDK/issues/5586), [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262), [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675), [#5626](https://github.com/microsoft/WindowsAppSDK/issues/5626), [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811), [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826), [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102), [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065), [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537), [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845), [#6322](https://github.com/microsoft/WindowsAppSDK/issues/6322)
+**Updated:** 2026-06-15 | **Confidence:** 0.8
+**Sources:** [#6197](https://github.com/microsoft/WindowsAppSDK/issues/6197), [#3718](https://github.com/microsoft/WindowsAppSDK/issues/3718), [#5598](https://github.com/microsoft/WindowsAppSDK/issues/5598), [#5586](https://github.com/microsoft/WindowsAppSDK/issues/5586), [#5262](https://github.com/microsoft/WindowsAppSDK/issues/5262), [#5675](https://github.com/microsoft/WindowsAppSDK/issues/5675), [#5626](https://github.com/microsoft/WindowsAppSDK/issues/5626), [#5811](https://github.com/microsoft/WindowsAppSDK/issues/5811), [#5826](https://github.com/microsoft/WindowsAppSDK/issues/5826), [#5102](https://github.com/microsoft/WindowsAppSDK/issues/5102), [#3065](https://github.com/microsoft/WindowsAppSDK/issues/3065), [#5537](https://github.com/microsoft/WindowsAppSDK/issues/5537), [#5845](https://github.com/microsoft/WindowsAppSDK/issues/5845), [#6322](https://github.com/microsoft/WindowsAppSDK/issues/6322), [#6508](https://github.com/microsoft/WindowsAppSDK/issues/6508)
