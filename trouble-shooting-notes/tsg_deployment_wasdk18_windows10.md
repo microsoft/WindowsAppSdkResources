@@ -193,5 +193,5 @@ Get-WinEvent -LogName Application -MaxEvents 20 |
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.9
+**Updated:** 2026-06-22 | **Confidence:** 0.9
 **Sources:** #6117, #6254, #6156, #5605

@@ -1,6 +1,6 @@
 # Error: "Could not copy the file 'WebView2Loader.dll' because it was not found" (MSB3030) - WebView2 Integration with Windows App SDK
 
-**Keywords:** MSB3030, WebView2Loader.dll, WebView2, Windows App SDK, WinUI3, XAML.MapControl.WinUI
+**Keywords:** MSB3030, WebView2Loader.dll, WebView2, Windows App SDK, WinUI3, XAML.MapControl.WinUI, CoreWebView2NavigationStartingEventArgs, duplicate types, MDM2009
 
 **Error Example:**
 ```
@@ -26,6 +26,7 @@ C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\a
 
 - [#5058](https://github.com/microsoft/WindowsAppSDK/issues/5058) - Error MSB3030 when referencing a class library with WebView2Loader.dll (Status: Closed)
 - [#5489](https://github.com/microsoft/WindowsAppSDK/issues/5489) - WebView2 stopped working after installing a package (Status: Closed)
+- [#3809](https://github.com/microsoft/WindowsAppSDK/issues/3809) - WebView2 types exist in both Microsoft.Web.WebView2.Core and Windows App SDK (Status: Closed)
 
 ---
 
@@ -63,6 +64,21 @@ C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\a
 
 ---
 
+### Scenario 3: Duplicate WebView2 Types in Microsoft.Web.WebView2.Core and Windows App SDK
+
+**Cause:** When using both the `Microsoft.Web.WebView2` NuGet package and the `Microsoft.WindowsAppSDK` in the same project, duplicate types such as `CoreWebView2NavigationStartingEventArgs` may exist in both libraries. This conflict can cause build errors or runtime issues.
+> Source: @codendone [MSFT] in [#3809](https://github.com/microsoft/WindowsAppSDK/issues/3809)
+
+**Fix:**
+1. Update to `Microsoft.WindowsAppSDK` version `1.6.240701003-experimental2` or later, which resolves the duplicate type issue.
+2. If updating is not an option, avoid referencing the `Microsoft.Web.WebView2` package directly. Instead, use the WebView2 APIs provided by the `Microsoft.WindowsAppSDK`.
+
+> ✅ Confirmed by: @codendone [MSFT] in [#3809](https://github.com/microsoft/WindowsAppSDK/issues/3809)
+
+**Verify:** Build and run your project to confirm that the duplicate type errors are resolved.
+
+---
+
 ## ⚠️ Unverified / Community Suggestions
 
 > The following are community suggestions that have NOT been officially confirmed.
@@ -75,9 +91,10 @@ C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\a
 
 - [#5058](https://github.com/microsoft/WindowsAppSDK/issues/5058)
 - [#5489](https://github.com/microsoft/WindowsAppSDK/issues/5489)
+- [#3809](https://github.com/microsoft/WindowsAppSDK/issues/3809)
 - [Failure to build when Microsoft.WindowsAppSDK 1.6 referenced through secondary nuget package #4807](https://github.com/microsoft/WindowsAppSDK/issues/4807)
 
 ---
 
-**Updated:** 2026-03-17 | **Confidence:** 0.9
-**Sources:** [#5058](https://github.com/microsoft/WindowsAppSDK/issues/5058), [#5489](https://github.com/microsoft/WindowsAppSDK/issues/5489)
+**Updated:** 2026-06-22 | **Confidence:** 0.9
+**Sources:** [#5058](https://github.com/microsoft/WindowsAppSDK/issues/5058), [#5489](https://github.com/microsoft/WindowsAppSDK/issues/5489), [#3809](https://github.com/microsoft/WindowsAppSDK/issues/3809)

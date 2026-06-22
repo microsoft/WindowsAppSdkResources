@@ -52,6 +52,9 @@
 - Avoid running `MakePri.exe` on Linux entirely.  
   > Suggested by: @davesmits in [#6533](https://github.com/microsoft/WindowsAppSDK/issues/6533)
 
+- MSIX Build Tools are designed to run on Windows. Consider running Dependabot in a Windows environment to avoid compatibility issues with other executables in the MSIX Build Tools package.  
+  > Suggested by: @guimafelipe in [#6533](https://github.com/microsoft/WindowsAppSDK/issues/6533)
+
 ---
 
 ## References
@@ -61,5 +64,5 @@
 
 ---
 
-**Updated:** 2026-06-15 | **Confidence:** 0.8  
+**Updated:** 2026-06-22 | **Confidence:** 0.8  
 **Sources:** [#6533](https://github.com/microsoft/WindowsAppSDK/issues/6533), [dependabot-core issue](https://github.com/dependabot/dependabot-core/issues/13080)
