@@ -156,6 +156,15 @@ No user-side workaround for pre-built apps. This requires a fix from Microsoft i
 
 ---
 
+### Known Issue: WASDK 1.8 Fails on Windows 10 17763 Due to Package Detection Error
+
+**Cause:** On Windows 10 version 17763, `FindPackagesByPackageFamily()` fails to detect WASDK 1.8 runtime packages even when they are installed. This is due to compatibility issues with older Windows 10 builds.
+> Source: @DrusTheAxe in [#6117](https://github.com/microsoft/WindowsAppSDK/issues/6117)
+
+**Workaround:** Disable the auto-initializer as described in Scenario 1. No permanent fix is available yet.
+
+---
+
 ## Diagnostic Steps
 
 ```powershell
@@ -193,5 +202,5 @@ Get-WinEvent -LogName Application -MaxEvents 20 |
 
 ---
 
-**Updated:** 2026-06-22 | **Confidence:** 0.9
+**Updated:** 2026-06-29 | **Confidence:** 0.9
 **Sources:** #6117, #6254, #6156, #5605

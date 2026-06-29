@@ -73,5 +73,5 @@ From a Windows 10 machine:
 
 ---
 
-**Updated:** 2026-06-22 | **Confidence:** 0.8
+**Updated:** 2026-06-29 | **Confidence:** 0.8
 **Sources:** [#3378](https://github.com/microsoft/WindowsAppSDK/issues/3378)

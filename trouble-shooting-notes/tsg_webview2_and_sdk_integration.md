@@ -96,5 +96,5 @@ C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\a
 
 ---
 
-**Updated:** 2026-06-22 | **Confidence:** 0.9
+**Updated:** 2026-06-29 | **Confidence:** 0.9
 **Sources:** [#5058](https://github.com/microsoft/WindowsAppSDK/issues/5058), [#5489](https://github.com/microsoft/WindowsAppSDK/issues/5489), [#3809](https://github.com/microsoft/WindowsAppSDK/issues/3809)
