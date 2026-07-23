@@ -7,7 +7,7 @@ ms.topic: how-to
 
 # Check execution provider versions in Windows ML
 
-Most execution providers in Windows ML are dynamically acquired via Windows Update at runtime as seen in [Install Windows ML EPs](./initialize-execution-providers.md), and updated versions are automatically updated (with compatible updates) as described in [Update Windows ML EPs](./update-execution-providers.md), meaning the version of the EP might vary over time.
+Most execution providers in Windows ML are dynamically acquired via Windows Update at runtime as seen in [Install Windows ML EPs](./initialize-execution-providers.md), and are automatically updated (with compatible updates) as described in [Update Windows ML EPs](./update-execution-providers.md), meaning the version of the EP might vary over time.
 
 See the [supported execution providers docs](./supported-execution-providers.md) to see what execution providers are available and their release history.
 
@@ -82,6 +82,8 @@ BOOL CALLBACK LogProviderVersionCallback(
     const WinMLEpInfo* info,
     void* context)
 {
+    if (info == nullptr) return TRUE;
+
     // Log the name
     printf("Windows ML EP: %s\n", info->name);
 
