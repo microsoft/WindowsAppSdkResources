@@ -46,12 +46,15 @@ public sealed partial class MainWindow : Window
             ShellWebView.CoreWebView2.PostWebMessageAsJson(response);
         };
 
-        // Navigate: prefer explicit env (for tooling), else packaged content via virtual host
+        // Navigate: prefer explicit env (for tooling in Debug), else packaged content via virtual host
+#if DEBUG
         var envUrl = Environment.GetEnvironmentVariable("WINSHELL_DEV_URL");
-
         var target = !string.IsNullOrWhiteSpace(envUrl)
             ? envUrl!
             : "https://app/index.html";
+#else
+        var target = "https://app/index.html";
+#endif
 
         ShellWebView.CoreWebView2.Navigate(target);
     }
